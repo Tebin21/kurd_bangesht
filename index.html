@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ckb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ڕەیان و کاروان | بانگهێشتنامەی هاوسەرگیری</title>
+<meta name="description" content="بانگهێشتنامەی هاوسەرگیری ڕەیان و کاروان - ٢٥ی تەممووزی ٢٠٢٦ - هۆڵی ئۆسکار">
+<meta name="theme-color" content="#F7E7CE">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================= -->
+<!-- LOADING SCREEN                -->
+<!-- ============================= -->
+<div class="loader" id="loader">
+  <div class="loader-glow"></div>
+  <div class="loader-content">
+    <div class="loader-monogram">
+      <span class="loader-letter">ڕ</span>
+      <svg class="loader-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-10.2-9.3C.3 8.9 1.6 5.3 5 4.4c2-.5 3.9.3 5 2 .1.1.2.1.3 0 1.1-1.7 3-2.5 5-2 3.4.9 4.7 4.5 3.2 7.3C19.5 16.3 12 21 12 21z"/></svg>
+      <span class="loader-letter">ک</span>
+    </div>
+    <p class="loader-text">بانگهێشتنامەی هاوسەرگیری</p>
+    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- ============================= -->
+<!-- LUXURY BACKGROUND LAYER       -->
+<!-- ============================= -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-gradient"></div>
+  <div class="bokeh bokeh-1"></div>
+  <div class="bokeh bokeh-2"></div>
+  <div class="bokeh bokeh-3"></div>
+  <div class="bokeh bokeh-4"></div>
+  <div class="sparkle-field" id="sparkleField"></div>
+  <div class="petal-field" id="petalField"></div>
+  <div class="butterfly-field" id="butterflyField"></div>
+</div>
+
+<!-- ============================= -->
+<!-- FLOATING MUSIC BUTTON         -->
+<!-- ============================= -->
+<button class="music-btn" id="musicBtn" type="button" aria-label="گۆرانی لێدان / وەستاندن" aria-pressed="false">
+  <svg class="music-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M9 18V5l11-2v13" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="17" cy="16" r="3"/>
+  </svg>
+  <span class="eq-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+<audio id="bgMusic" src="love.mp3" loop preload="auto"></audio>
+
+<main>
+
+  <!-- ============================= -->
+  <!-- HERO                          -->
+  <!-- ============================= -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow reveal"></p>
+      <h1 class="hero-title reveal" style="transition-delay:.1s">
+        <span class="name">ڕەیان</span>
+        <svg class="hero-heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.7-10.2-9.3C.3 8.9 1.6 5.3 5 4.4c2-.5 3.9.3 5 2 .1.1.2.1.3 0 1.1-1.7 3-2.5 5-2 3.4.9 4.7 4.5 3.2 7.3C19.5 16.3 12 21 12 21z"/></svg>
+        <span class="name">کاروان</span>
+      </h1>
+      <p class="hero-subtitle reveal" style="transition-delay:.2s">بە دڵخۆشیی گەورەوە بانگهێشتتان دەکەین بۆ بەشداریکردن لە جوانترین ڕۆژی ژیانمان، کاتێک دەستمان بە یەکەوە دەگرین بۆ هەمیشە</p>
+      <div class="hero-date reveal" style="transition-delay:.3s">
+        <span class="hero-date-line"></span>
+        <span>٢٥ی تەممووزی ٢٠٢٦</span>
+        <span class="hero-date-line"></span>
+      </div>
+      <a href="#invitation" class="btn-luxury reveal" style="transition-delay:.4s">
+        <span>بینینی بانگهێشتنامە</span>
+      </a>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- COUNTDOWN                     -->
+  <!-- ============================= -->
+  <section class="countdown-section" id="countdown">
+    <h2 class="section-title reveal">تا ڕۆژی خۆشیمان ماوەتەوە</h2>
+    <p class="section-subtitle reveal">هەر چرکەیەک، نزیکترمان دەکاتەوە لە یەکبوونی هەتاهەتایی</p>
+    <div class="countdown-grid reveal">
+      <div class="count-card">
+        <span class="count-num" id="cd-days">00</span>
+        <span class="count-label">ڕۆژ</span>
+      </div>
+      <div class="count-card">
+        <span class="count-num" id="cd-hours">00</span>
+        <span class="count-label">کاتژمێر</span>
+      </div>
+      <div class="count-card">
+        <span class="count-num" id="cd-mins">00</span>
+        <span class="count-label">خولەک</span>
+      </div>
+      <div class="count-card">
+        <span class="count-num" id="cd-secs">00</span>
+        <span class="count-label">چرکە</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- WEDDING STORY                 -->
+  <!-- ============================= -->
+  <section class="story-section" id="story">
+    <svg class="story-icon reveal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+      <circle cx="9" cy="15" r="4.5"/>
+      <circle cx="15" cy="9" r="4.5"/>
+    </svg>
+    <h2 class="section-title reveal">چیرۆکی دڵمان</h2>
+    <p class="story-text reveal">لە یەکەم بینینەوە، هەستێکی نەناسراو دەستی پێکرد؛ وشەیەک نەگوترا، بەڵام دڵمان زانی. ڕۆژ بە دواوە ڕۆژ، خۆشەویستیمان گەشەی کرد وەک گوڵێک لەژێر تیشکی خۆر، هەتا گەیشتینە ئەم ساتەی کە ئێستا دەیژینین. ئێمە بڕیارمانداوە دەستی یەکتریمان بگرین و ئەم چیرۆکە بەردەوام بکەین بۆ هەتاهەتایە، و شانازیمانە کە ئێوە شایەتی ئەم دەستپێکە خۆشەویستییە بن.</p>
+  </section>
+
+  <!-- ============================= -->
+  <!-- INVITATION CARD               -->
+  <!-- ============================= -->
+  <section class="invitation-section" id="invitation">
+    <div class="invitation-card reveal">
+      <span class="invitation-corner tl" aria-hidden="true"></span>
+      <span class="invitation-corner tr" aria-hidden="true"></span>
+      <span class="invitation-corner bl" aria-hidden="true"></span>
+      <span class="invitation-corner br" aria-hidden="true"></span>
+
+      <svg class="invitation-ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <circle cx="12" cy="14" r="6.5"/>
+        <path d="M9.5 8 12 3l2.5 5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <p class="invitation-kicker">بە دڵخۆشییەوە بانگهێشتتان دەکەین</p>
+      <h2 class="invitation-names">ڕەیان <span class="amp">&amp;</span> کاروان</h2>
+      <p class="invitation-text">هاوبەشی خۆشییەکانمان بن، لە ئاهەنگی بەیەکگەیشتنمان کە دەبێتە دەستپێکی گەشتێکی نوێ لە ژیانماندا</p>
+      <div class="invitation-divider"><span></span></div>
+      <p class="invitation-date">٢٥ی تەممووزی ٢٠٢٦ &nbsp;•&nbsp; هۆڵی ئۆسکار</p>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- WEDDING DETAILS               -->
+  <!-- ============================= -->
+  <section class="details-section" id="details">
+    <h2 class="section-title reveal">وردەکاری ئاهەنگ</h2>
+    <div class="details-grid">
+
+      <div class="detail-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7.5-4.7-10.2-9.3C.3 8.9 1.6 5.3 5 4.4c2-.5 3.9.3 5 2 .1.1.2.1.3 0 1.1-1.7 3-2.5 5-2 3.4.9 4.7 4.5 3.2 7.3C19.5 16.3 12 21 12 21z" stroke-linejoin="round"/></svg>
+        <h3>بووک</h3>
+        <p>ڕەیان</p>
+      </div>
+
+      <div class="detail-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="15" r="4.5"/><circle cx="15" cy="9" r="4.5"/></svg>
+        <h3>زاوا</h3>
+        <p>کاروان</p>
+      </div>
+
+      <div class="detail-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke-linecap="round"/></svg>
+        <h3>بەروار</h3>
+        <p>٢٥ی تەممووزی ٢٠٢٦</p>
+      </div>
+
+      <div class="detail-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+        <h3>شوێن</h3>
+        <p>هۆڵی ئۆسکار</p>
+      </div>
+
+      <div class="detail-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2.5l2.6 5.6 6 .8-4.4 4.3 1.1 6-5.3-2.9-5.3 2.9 1.1-6-4.4-4.3 6-.8L12 2.5z" stroke-linejoin="round"/></svg>
+        <h3>کات</h3>
+        <p>کاتژمێر ٦:٠٠ی ئێوارە</p>
+      </div>
+
+      <div class="detail-card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="7" r="3"/><circle cx="15" cy="7" r="3"/><path d="M4 20c.5-3.5 3-5.5 5-5.5s2 .5 3 .5 1-.5 3-.5 4.5 2 5 5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>کۆدی جلوبەرگ</h3>
+        <p>ڕازاوەیی فەرمی — ڕەنگی ئاڵتوونی و کرێمی</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- GALLERY                       -->
+  <!-- ============================= -->
+  <section class="gallery-section" id="gallery">
+    <h2 class="section-title reveal">وێنەکانی خۆشی</h2>
+    <p class="section-subtitle reveal">بەزووی یادگارییە خۆشەکانمان لێرە زیاد دەکرێن</p>
+    <div class="gallery-grid">
+      <div class="gallery-card reveal" data-parallax></div>
+      <div class="gallery-card reveal" data-parallax></div>
+      <div class="gallery-card reveal" data-parallax></div>
+      <div class="gallery-card reveal" data-parallax></div>
+      <div class="gallery-card reveal" data-parallax></div>
+      <div class="gallery-card reveal" data-parallax></div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- LOCATION                      -->
+  <!-- ============================= -->
+  <section class="location-section" id="location">
+    <div class="location-card reveal">
+      <svg class="location-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+        <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" stroke-linejoin="round"/>
+        <circle cx="12" cy="9.5" r="2.3"/>
+      </svg>
+      <h2>هۆڵی ئۆسکار</h2>
+      <p>چاوەڕێتان دەکەین بۆ بەشداریکردن لەم ساتە هەستیارەدا لەگەڵمان، لە هۆڵی ئۆسکار — شوێنێکی تایبەت بۆ یادگارییەکی هەتاهەتایی</p>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- THANK YOU                     -->
+  <!-- ============================= -->
+  <section class="thanks-section" id="thanks">
+    <div class="thanks-monogram reveal">
+      <span>ڕ</span>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.7-10.2-9.3C.3 8.9 1.6 5.3 5 4.4c2-.5 3.9.3 5 2 .1.1.2.1.3 0 1.1-1.7 3-2.5 5-2 3.4.9 4.7 4.5 3.2 7.3C19.5 16.3 12 21 12 21z"/></svg>
+      <span>ک</span>
+    </div>
+    <h2 class="reveal">سوپاس بۆ خۆشەویستیتان</h2>
+    <p class="reveal">بوونتان لەگەڵمان لەم ڕۆژە هەستیارەدا، مایەی شانازی و خۆشحاڵیمانە. سوپاسی گەورەتان بۆ هەموو خۆشەویستی و پشتگیرییەکانتان — بێگومان ئێوە بەشێکن لە جوانترین ڕۆژی ژیانمان.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>بە خۆشەویستییەوە دروستکراوە بۆ ڕەیان &amp; کاروان &nbsp;·&nbsp; ٢٠٢٦</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
