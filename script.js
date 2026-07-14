@@ -12,6 +12,20 @@
   document.body.classList.add('no-scroll');
 
   /* ---------------------------------------------------
+     Always start at the top of the page — never resume
+     a mid-page scroll position on load/refresh/bfcache.
+     --------------------------------------------------- */
+  function forceScrollTop() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  forceScrollTop();
+  window.addEventListener('load', forceScrollTop);
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) forceScrollTop();
+  });
+
+  /* ---------------------------------------------------
      Eastern Arabic-Indic digit helper (کوردی ٠١٢٣٤٥٦٧٨٩)
      --------------------------------------------------- */
   var EASTERN_DIGITS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
@@ -170,7 +184,7 @@
   }
 
   /* ---------------------------------------------------
-     Mouse parallax (hero) + scroll parallax (gallery)
+     Mouse parallax (hero)
      --------------------------------------------------- */
   function initParallax() {
     if (reducedMotion) return;
@@ -190,29 +204,6 @@
         ticking = true;
       }
     }, { passive: true });
-
-    var galleryCards = document.querySelectorAll('[data-parallax]');
-    if (!galleryCards.length) return;
-    var scrollTicking = false;
-
-    function updateGalleryParallax() {
-      var vh = window.innerHeight;
-      galleryCards.forEach(function (card) {
-        var rect = card.getBoundingClientRect();
-        var centerOffset = (rect.top + rect.height / 2 - vh / 2) / vh;
-        card.style.setProperty('--py', (centerOffset * 24) + 'px');
-      });
-      scrollTicking = false;
-    }
-
-    window.addEventListener('scroll', function () {
-      if (!scrollTicking) {
-        requestAnimationFrame(updateGalleryParallax);
-        scrollTicking = true;
-      }
-    }, { passive: true });
-
-    updateGalleryParallax();
   }
 
   /* ---------------------------------------------------
@@ -281,61 +272,144 @@
   }
 
   /* ---------------------------------------------------
-     Premium CSS/JS butterflies — realistic wandering flight
+     Premium SVG butterflies — realistic wandering flight
+     - delicate hand-drawn wing silhouettes with soft
+       translucent gradients (no cartoonish div shapes)
+     - both wings flap in sync, as real butterflies do
+     - curved, ever-changing paths (no straight lines)
+     - eased acceleration toward a randomly re-picked speed
+     - occasional brief pause before a new direction
+     - a gentle sinusoidal bob layered on top of the flight
+       path so movement never looks mechanical
+     - some fly behind cards, some in front
      --------------------------------------------------- */
-  function initButterflies() {
-    var field = document.getElementById('butterflyField');
-    if (!field || reducedMotion) return;
+  var BFLY_THEMES = [
+    { c1: '#fefcf8', c2: '#ecdfc9' },  /* soft white   */
+    { c1: '#fff3da', c2: '#e3c48f' },  /* cream        */
+    { c1: '#f7e7ce', c2: '#d9b98a' },  /* champagne    */
+    { c1: '#f6d9dc', c2: '#dba3ac' },  /* blush pink   */
+    { c1: '#ece3f7', c2: '#c3aee0' }   /* light lavender */
+  ];
+  var bflyGradSeq = 0;
 
-    var colors = ['c-cream', 'c-white', 'c-gold', 'c-lavender'];
+  function buildButterflySVG(theme) {
+    var gradId = 'bflyGrad' + (bflyGradSeq++);
+    var foreR = 'M0,-3 C6,-14 16,-22 30,-25 C31,-16 27,-6 18,1 C11,6 3,3 0,-3 Z';
+    var foreL = 'M0,-3 C-6,-14 -16,-22 -30,-25 C-31,-16 -27,-6 -18,1 C-11,6 -3,3 0,-3 Z';
+    var hindR = 'M0,1 C6,4 16,8 22,18 C25,23 24,27 20,26 C14,25 7,19 1,11 C-1,7 -1,3 0,1 Z';
+    var hindL = 'M0,1 C-6,4 -16,8 -22,18 C-25,23 -24,27 -20,26 C-14,25 -7,19 -1,11 C1,7 1,3 0,1 Z';
+    return (
+      '<svg class="bfly-svg" viewBox="-34 -30 68 60" xmlns="http://www.w3.org/2000/svg">' +
+        '<defs><radialGradient id="' + gradId + '" cx="34%" cy="28%" r="82%">' +
+          '<stop offset="0%" stop-color="#ffffff" stop-opacity=".95"/>' +
+          '<stop offset="55%" stop-color="' + theme.c1 + '" stop-opacity=".6"/>' +
+          '<stop offset="100%" stop-color="' + theme.c2 + '" stop-opacity=".28"/>' +
+        '</radialGradient></defs>' +
+        '<g class="bfly-side bfly-right">' +
+          '<path class="bfly-wing bfly-fore" fill="url(#' + gradId + ')" d="' + foreR + '"/>' +
+          '<path class="bfly-wing bfly-hind" fill="url(#' + gradId + ')" d="' + hindR + '"/>' +
+        '</g>' +
+        '<g class="bfly-side bfly-left">' +
+          '<path class="bfly-wing bfly-fore" fill="url(#' + gradId + ')" d="' + foreL + '"/>' +
+          '<path class="bfly-wing bfly-hind" fill="url(#' + gradId + ')" d="' + hindL + '"/>' +
+        '</g>' +
+        '<path class="bfly-body" d="M0,-14 C1.6,-14 2.1,-9 1.4,0 C2.1,8 1.6,14 0,16 C-1.6,14 -2.1,8 -1.4,0 C-2.1,-9 -1.6,-14 0,-14 Z"/>' +
+        '<path class="bfly-antenna" d="M-0.6,-13 C-3,-18 -6.5,-19.5 -8.5,-17.5 M0.6,-13 C3,-18 6.5,-19.5 8.5,-17.5"/>' +
+      '</svg>'
+    );
+  }
+
+  function initButterflies() {
+    var fieldBehind = document.getElementById('butterflyField');
+    var fieldFront = document.getElementById('butterflyFieldFront');
+    if (!fieldBehind || !fieldFront || reducedMotion) return;
+
     var count = isMobile ? 5 : 10;
     var butterflies = [];
 
     for (var i = 0; i < count; i++) {
-      var el = document.createElement('div');
-      var size = 16 + Math.random() * 18;
-      var color = colors[Math.floor(Math.random() * colors.length)];
-      var layer = Math.random() < 0.4 ? 'behind' : 'front';
+      var container = Math.random() < 0.4 ? fieldBehind : fieldFront;
 
-      el.className = 'butterfly ' + color + ' ' + layer;
+      var el = document.createElement('div');
+      var size = 18 + Math.random() * 20;
+      var theme = BFLY_THEMES[Math.floor(Math.random() * BFLY_THEMES.length)];
+      var flapDur = (0.34 + Math.random() * 0.28).toFixed(2);
+      var flapPhase = (Math.random() * -0.4).toFixed(2);
+
+      el.className = 'butterfly';
       el.style.width = size + 'px';
-      el.style.height = (size * 0.82) + 'px';
-      el.innerHTML = '<span class="wing left"></span><span class="wing right"></span><span class="body"></span>';
-      field.appendChild(el);
+      el.style.height = (size * 0.9) + 'px';
+      el.innerHTML = buildButterflySVG(theme);
+
+      var sides = el.querySelectorAll('.bfly-side');
+      for (var s = 0; s < sides.length; s++) {
+        sides[s].style.animationDuration = flapDur + 's';
+        sides[s].style.animationDelay = flapPhase + 's';
+      }
+
+      container.appendChild(el);
 
       butterflies.push({
         el: el,
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
         angle: Math.random() * Math.PI * 2,
-        speed: 0.35 + Math.random() * 0.55,
-        wobble: Math.random() * Math.PI * 2,
-        wobbleSpeed: 0.03 + Math.random() * 0.03
+        targetAngle: Math.random() * Math.PI * 2,
+        speed: 0,
+        maxSpeed: 0.3 + Math.random() * 0.5,
+        state: 'flying',
+        stateTimer: 90 + Math.random() * 180,
+        bobPhase: Math.random() * Math.PI * 2,
+        bobSpeed: 0.03 + Math.random() * 0.04,
+        bobAmp: 2.5 + Math.random() * 3.5
       });
+    }
+
+    function pickNewCourse(b) {
+      b.targetAngle = b.angle + (Math.random() - 0.5) * Math.PI * 1.3;
+      b.maxSpeed = 0.25 + Math.random() * 0.55;
     }
 
     function frame() {
       var w = window.innerWidth, h = window.innerHeight;
 
       butterflies.forEach(function (b) {
-        b.angle += (Math.random() - 0.5) * 0.12;
-        b.wobble += b.wobbleSpeed;
+        b.stateTimer--;
+
+        if (b.stateTimer <= 0) {
+          if (b.state === 'flying' && Math.random() < 0.25) {
+            b.state = 'pausing';
+            b.stateTimer = 18 + Math.random() * 35;
+          } else {
+            b.state = 'flying';
+            pickNewCourse(b);
+            b.stateTimer = 100 + Math.random() * 200;
+          }
+        }
+
+        var targetSpeed = b.state === 'pausing' ? 0 : b.maxSpeed;
+        b.speed += (targetSpeed - b.speed) * 0.03;
+
+        var da = Math.atan2(Math.sin(b.targetAngle - b.angle), Math.cos(b.targetAngle - b.angle));
+        b.angle += da * 0.02 + (Math.random() - 0.5) * 0.02;
 
         var vx = Math.cos(b.angle) * b.speed;
-        var vy = Math.sin(b.angle) * b.speed + Math.sin(b.wobble) * 0.4;
+        var vy = Math.sin(b.angle) * b.speed;
 
         b.x += vx;
         b.y += vy;
+        b.bobPhase += b.bobSpeed;
 
         if (b.x < -40) b.x = w + 40;
         if (b.x > w + 40) b.x = -40;
         if (b.y < -40) b.y = h + 40;
         if (b.y > h + 40) b.y = -40;
 
-        var tilt = Math.sin(b.wobble) * 14;
-        var flip = vx < 0 ? -1 : 1;
+        var bob = Math.sin(b.bobPhase) * b.bobAmp * (0.3 + b.speed / (b.maxSpeed || 1));
+        var tilt = Math.sin(b.angle) * 8 * (b.speed / (b.maxSpeed || 1));
+        var flip = vx < -0.02 ? -1 : 1;
         b.el.style.transform =
-          'translate3d(' + b.x + 'px,' + b.y + 'px,0) scaleX(' + flip + ') rotate(' + tilt + 'deg)';
+          'translate3d(' + b.x.toFixed(1) + 'px,' + (b.y + bob).toFixed(1) + 'px,0) scaleX(' + flip + ') rotate(' + tilt.toFixed(1) + 'deg)';
       });
 
       requestAnimationFrame(frame);

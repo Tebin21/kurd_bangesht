@@ -219,33 +219,40 @@ h1,h2,h3{ font-weight: 700; color: var(--ink); }
 }
 
 /* butterflies */
+.butterfly-field-front{
+  position: fixed; inset:0; z-index:2; overflow:hidden; pointer-events:none;
+}
+
 .butterfly{
   position:absolute; top:0; left:0;
-  width: 22px; height:18px;
+  width: 26px; height:24px;
   will-change: transform;
 }
-.butterfly .wing{
-  position:absolute; top:0; width:11px; height:18px;
-  background: var(--soft-gold);
+.bfly-svg{
+  width:100%; height:100%; overflow:visible;
+  filter: drop-shadow(0 3px 4px rgba(74,63,53,.16));
+}
+.bfly-side{
+  transform-origin: 0px 0px;
+  animation-name: bflyFlap;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.bfly-wing{ opacity:.94; }
+.bfly-wing.bfly-hind{ opacity:.86; }
+.bfly-body{
+  fill: var(--gold-deep);
   opacity:.85;
-  animation: flutter 0.42s ease-in-out infinite;
 }
-.butterfly .wing.left{ right:50%; border-radius: 100% 0% 60% 40%; transform-origin: right center; }
-.butterfly .wing.right{ left:50%; border-radius: 0% 100% 40% 60%; transform-origin: left center; animation-delay: .01s; }
-.butterfly .body{
-  position:absolute; left:50%; top:2px; width:2px; height:14px;
-  background: var(--gold-deep); border-radius:2px; transform: translateX(-50%);
+.bfly-antenna{
+  fill:none; stroke: var(--ink-soft); stroke-width:.5; stroke-linecap:round; opacity:.7;
 }
-@keyframes flutter{
-  0%,100%{ transform: scaleX(1); }
-  50%{ transform: scaleX(.35); }
+
+@keyframes bflyFlap{
+  0%,100%{ transform: scaleX(1) rotate(0deg); }
+  46%{ transform: scaleX(.3) rotate(-5deg); }
+  54%{ transform: scaleX(.3) rotate(5deg); }
 }
-.butterfly.c-cream .wing{ background: var(--cream); border:1px solid rgba(212,175,106,.4); }
-.butterfly.c-white .wing{ background:#fff; border:1px solid rgba(212,175,106,.3); }
-.butterfly.c-gold .wing{ background: var(--soft-gold); }
-.butterfly.c-lavender .wing{ background: var(--lavender); }
-.butterfly.behind{ z-index:0; }
-.butterfly.front{ z-index:5; }
 
 /* =====================================================
    LAYOUT / SECTIONS
@@ -254,7 +261,7 @@ main, .site-footer{ position:relative; z-index:1; }
 
 section{
   position:relative;
-  padding: clamp(3.5rem, 10vw, 7rem) clamp(1.25rem, 6vw, 3rem);
+  padding: clamp(2.25rem, 6vw, 4.25rem) clamp(1.25rem, 6vw, 3rem);
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -269,12 +276,11 @@ section{
   text-align:center;
   color: var(--ink-soft);
   font-size: clamp(.9rem, 2.5vw, 1.05rem);
-  margin-bottom: clamp(2rem, 6vw, 3rem);
+  margin-bottom: clamp(1.25rem, 4vw, 2rem);
   max-width: 40ch;
   margin-inline: auto;
 }
-.section-title + .gallery-grid,
-.section-title + .details-grid{ margin-top: clamp(2rem,6vw,3rem); }
+.section-title + .details-grid{ margin-top: clamp(1.25rem,4vw,2rem); }
 
 /* ---------- Scroll reveal ---------- */
 .reveal{
@@ -301,13 +307,6 @@ section{
 .details-grid .detail-card:nth-child(4){ transition-delay:.26s; }
 .details-grid .detail-card:nth-child(5){ transition-delay:.33s; }
 .details-grid .detail-card:nth-child(6){ transition-delay:.4s; }
-
-.gallery-grid .gallery-card:nth-child(1){ transition-delay:.05s; }
-.gallery-grid .gallery-card:nth-child(2){ transition-delay:.1s; }
-.gallery-grid .gallery-card:nth-child(3){ transition-delay:.15s; }
-.gallery-grid .gallery-card:nth-child(4){ transition-delay:.2s; }
-.gallery-grid .gallery-card:nth-child(5){ transition-delay:.25s; }
-.gallery-grid .gallery-card:nth-child(6){ transition-delay:.3s; }
 
 /* =====================================================
    BUTTONS
@@ -349,7 +348,7 @@ section{
   max-width:none;
   min-height: 100svh;
   display:flex; align-items:center; justify-content:center; text-align:center;
-  padding: 6rem 1.25rem 4rem;
+  padding: 5rem 1.25rem 2.5rem;
 }
 .hero-inner{ max-width: 720px; transform: translate3d(calc(var(--mx) * -1), calc(var(--my) * -1), 0); transition: transform .2s ease-out; }
 
@@ -372,7 +371,42 @@ section{
   -webkit-background-clip: text; background-clip:text; color:transparent;
   animation: shimmerText 6s linear infinite;
 }
-.hero-heart{ width: clamp(1.4rem, 5vw, 2.2rem); height: clamp(1.4rem, 5vw, 2.2rem); color: var(--rose-gold-deep); animation: heartbeat 2.4s ease-in-out infinite; }
+.hero-icon-wrap{
+  position:relative;
+  display:inline-flex; align-items:center; justify-content:center;
+  width: clamp(2.4rem, 7.5vw, 3.4rem);
+  height: clamp(1.5rem, 4.6vw, 2.1rem);
+  animation: heroIconFloat 4.5s ease-in-out infinite;
+}
+.hero-icon-wrap::before{
+  content:'';
+  position:absolute; inset:-55%;
+  background: radial-gradient(circle, rgba(212,175,106,.5), rgba(232,196,192,.25) 55%, transparent 75%);
+  filter: blur(7px);
+  animation: heroIconGlow 3.2s ease-in-out infinite;
+  z-index:-1;
+}
+.hero-icon{
+  width:100%; height:100%;
+  filter: drop-shadow(0 2px 5px rgba(184,147,90,.4));
+}
+.hero-heart{
+  filter: drop-shadow(0 3px 8px rgba(183,110,121,.45));
+  animation: heartPulse 2.6s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes heartPulse{
+  0%,100%{ transform: scale(1); }
+  50%{ transform: scale(1.09); }
+}
+@keyframes heroIconFloat{
+  0%,100%{ transform: translateY(0) rotate(0deg); }
+  50%{ transform: translateY(-5px) rotate(3deg); }
+}
+@keyframes heroIconGlow{
+  0%,100%{ opacity:.55; transform: scale(.9); }
+  50%{ opacity:1; transform: scale(1.18); }
+}
 
 .hero-subtitle{
   font-size: clamp(1rem, 2.6vw, 1.2rem);
@@ -427,16 +461,6 @@ section{
   color: var(--ink-soft); letter-spacing:normal;
 }
 
-/* =====================================================
-   STORY
-   ===================================================== */
-.story-section{ text-align:center; }
-.story-icon{ width: 42px; height:42px; margin: 0 auto 1rem; color: var(--rose-gold-deep); animation: gentleFloat 5s ease-in-out infinite; }
-.story-text{
-  max-width: 60ch; margin: 0 auto;
-  font-size: clamp(1rem, 2.6vw, 1.15rem);
-  color: var(--ink-soft);
-}
 @keyframes gentleFloat{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-8px);} }
 
 /* =====================================================
@@ -505,38 +529,6 @@ section{
 .detail-card p{ font-size: clamp(.82rem, 2.4vw, .95rem); color: var(--ink-soft); }
 
 /* =====================================================
-   GALLERY
-   ===================================================== */
-.gallery-grid{
-  display:grid; grid-template-columns: repeat(2, 1fr);
-  gap: clamp(.8rem, 3vw, 1.3rem);
-}
-.gallery-card{
-  position:relative;
-  aspect-ratio: 3/4;
-  border-radius: 20px;
-  overflow:hidden;
-  background: linear-gradient(150deg, var(--champagne), var(--rose-gold) 60%, var(--gold-light));
-  background-size: 180% 180%;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  transform: translate3d(0, var(--py, 0px), 0);
-  transition: transform var(--dur-fast) var(--ease-luxury);
-  animation: gradientDrift 12s ease-in-out infinite;
-}
-.gallery-card:hover{ transform: translate3d(0, var(--py, 0px), 0) translateY(-6px) scale(1.02); }
-.gallery-card::before{
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(0deg, rgba(74,63,53,.28), transparent 50%);
-}
-.gallery-card::after{
-  content:'وێنە بەزووی زیاد دەکرێت';
-  position:absolute; inset:auto 0 14px 0; text-align:center;
-  font-size:.72rem; color: var(--luxury-white); letter-spacing:normal;
-  text-shadow: 0 1px 4px rgba(0,0,0,.25);
-}
-
-/* =====================================================
    LOCATION
    ===================================================== */
 .location-section{ display:flex; justify-content:center; }
@@ -589,7 +581,7 @@ section{
 /* =====================================================
    THANK YOU
    ===================================================== */
-.thanks-section{ text-align:center; padding-bottom: 5rem; }
+.thanks-section{ text-align:center; padding-bottom: 3rem; }
 .thanks-monogram{
   display:flex; align-items:center; justify-content:center; gap:.6rem;
   font-size: clamp(1.8rem, 6vw, 2.4rem);
@@ -647,12 +639,17 @@ section{
    ===================================================== */
 @media (min-width: 640px){
   .details-grid{ grid-template-columns: repeat(3, 1fr); }
-  .gallery-grid{ grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (min-width: 960px){
-  section{ padding-top: 8rem; padding-bottom: 8rem; }
+  section{ padding-top: 4.75rem; padding-bottom: 4.75rem; }
   .hero-inner{ max-width: 860px; }
+}
+
+@media (max-width: 480px){
+  section{ padding-top: 2rem; padding-bottom: 2rem; }
+  .hero{ padding-top: 4rem; padding-bottom: 2rem; }
+  .thanks-section{ padding-bottom: 2.25rem; }
 }
 
 /* =====================================================
