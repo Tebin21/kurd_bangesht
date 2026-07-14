@@ -129,6 +129,16 @@
         video.muted = true;
         video.play().catch(function () {});
         if (music) music.play().catch(function () {});
+
+        /* Only crossfade the poster away once the browser has
+           actually started rendering video frames (the 'playing'
+           event) — never on tap alone — so there is no window
+           where a not-yet-painted <video> could show through as
+           black. A short safety timeout covers the rare browser
+           that never fires 'playing' after play(). */
+        var revealVideo = function () { intro.classList.add('video-ready'); };
+        video.addEventListener('playing', revealVideo, { once: true });
+        setTimeout(revealVideo, 2500);
       }
 
       ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(function (evt) {

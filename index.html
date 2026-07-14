@@ -11,6 +11,7 @@
   if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 </script>
 
+<link rel="preload" as="image" href="video-poster.jpg" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,10 +21,20 @@
 <!-- CINEMATIC OPENING             -->
 <!-- ============================= -->
 <div class="cinematic-intro" id="cinematicIntro" role="button" tabindex="0" aria-label="کرتە بکە بۆ دەستپێکردن">
+  <img
+    id="introPoster"
+    class="cinematic-poster"
+    src="video-poster.jpg"
+    alt=""
+    aria-hidden="true"
+    fetchpriority="high"
+    decoding="async"
+  >
   <video
     id="introVideo"
     class="cinematic-video"
     src="video-1.mp4"
+    poster="video-poster.jpg"
     preload="auto"
     playsinline
     webkit-playsinline="true"

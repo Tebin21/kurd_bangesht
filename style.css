@@ -98,7 +98,7 @@ html.intro-active body{ overflow:hidden; height:100%; }
 
 .cinematic-intro{
   position: fixed; inset: 0; z-index: 3000;
-  background: #05050a;
+  background: #f3e9d7;
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
   cursor:pointer;
@@ -109,6 +109,7 @@ html.intro-active body{ overflow:hidden; height:100%; }
 .cinematic-intro::after{
   content:'';
   position:absolute; inset:0;
+  z-index:1;
   background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%);
   pointer-events:none;
 }
@@ -121,15 +122,33 @@ html.intro-active body{ overflow:hidden; height:100%; }
 
 .cinematic-video{
   position:absolute; inset:0;
+  z-index:0;
   width:100%; height:100%;
   object-fit: cover;
   pointer-events:none;
   outline:none;
-  background:#05050a;
+  background:#f3e9d7;
 }
 .cinematic-video::-webkit-media-controls,
 .cinematic-video::-webkit-media-controls-start-playback-button,
 .cinematic-video::-webkit-media-controls-panel{ display:none !important; -webkit-appearance:none; }
+
+/* Poster — shown instantly on load (the video's own first frame),
+   covers the viewport, and stays put until playback is actually
+   confirmed rendering (see .video-ready), so the crossfade to the
+   live video never exposes a black frame underneath. */
+.cinematic-poster{
+  position:absolute; inset:0;
+  z-index:2;
+  width:100%; height:100%;
+  object-fit: cover;
+  pointer-events:none;
+  opacity:1;
+  transition: opacity 1s cubic-bezier(.65,0,.35,1);
+}
+.cinematic-intro.video-ready .cinematic-poster{
+  opacity:0;
+}
 
 .cinematic-hint{
   position:absolute; bottom: clamp(2rem, 8vh, 4rem); left:50%;
@@ -141,7 +160,7 @@ html.intro-active body{ overflow:hidden; height:100%; }
   opacity:.95;
   text-shadow: 0 2px 12px rgba(0,0,0,.6);
   transition: opacity .6s ease;
-  z-index:1;
+  z-index:3;
 }
 .cinematic-hint-ring{
   position:relative;
@@ -551,11 +570,9 @@ section{
   gap: clamp(.6rem, 3vw, 1.5rem);
 }
 .countdown-grid .count-card{
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  background: rgba(255,253,249,0.78);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,.6);
   border-radius: 20px;
   padding: clamp(1rem, 4vw, 1.8rem) .5rem;
   text-align:center;

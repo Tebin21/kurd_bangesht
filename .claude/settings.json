@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\(require\\('ffmpeg-static'\\)\\)\")",
+      "Bash('C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\8ba96806-5d60-499d-81cb-e80ff5c608b4\\\\scratchpad\\\\node_modules\\\\ffmpeg-static\\\\ffmpeg.exe' -y -i video-1.mp4 -vf 'select=eq\\(n\\\\,0\\)' -vframes 1 -q:v 2 video-poster.jpg)",
+      "Bash(rm -f \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\8ba96806-5d60-499d-81cb-e80ff5c608b4\\\\scratchpad\"/shot-*.png \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\8ba96806-5d60-499d-81cb-e80ff5c608b4\\\\scratchpad\"/verify.js)",
+      "Bash(pkill -f \"http.server 8791\")",
+      "PowerShell(Get-CimInstance Win32_Process -Filter \"CommandLine LIKE '%8791%'\" | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }; \"done\")",
+      "PowerShell($procs = Get-CimInstance Win32_Process -Filter \"CommandLine LIKE '%8791%'\"; $procs | Select-Object ProcessId, CommandLine; foreach \\($p in $procs\\) { Stop-Process -Id $p.ProcessId -Force }; \"done\")"
+    ]
+  }
+}
