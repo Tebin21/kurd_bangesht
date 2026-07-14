@@ -389,20 +389,6 @@ section{
 .hero-date-line{ width: 2.5rem; height:1px; background: linear-gradient(90deg, transparent, var(--soft-gold)); }
 .hero-date-line:last-child{ background: linear-gradient(270deg, transparent, var(--soft-gold)); }
 
-.scroll-hint{
-  position:absolute; bottom: 2rem; left:50%; transform: translateX(-50%);
-  width: 26px; height: 42px; border: 1.5px solid var(--gold-deep); border-radius: 20px;
-  opacity:.6;
-}
-.scroll-hint span{
-  position:absolute; top:6px; left:50%; width:4px; height:8px; border-radius:2px;
-  background: var(--gold-deep); transform: translateX(-50%);
-  animation: scrollDot 1.8s ease-in-out infinite;
-}
-@keyframes scrollDot{
-  0%{ top:6px; opacity:1;} 70%{ opacity:0;} 100%{ top:22px; opacity:0;}
-}
-
 /* =====================================================
    COUNTDOWN
    ===================================================== */
@@ -567,6 +553,38 @@ section{
 .location-pin{ width:38px; height:38px; margin: 0 auto 1rem; color: var(--rose-gold-deep); animation: gentleFloat 4s ease-in-out infinite; }
 .location-card h2{ font-size: clamp(1.4rem, 5vw, 1.9rem); margin-bottom: .8rem; color: var(--gold-deep); }
 .location-card p{ color: var(--ink-soft); max-width: 42ch; margin: 0 auto; }
+
+.map-frame{
+  position:relative;
+  margin: clamp(1.6rem, 5vw, 2.2rem) auto 0;
+  width:100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow:hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  background: var(--glass-bg);
+}
+.map-frame::after{
+  content:''; position:absolute; inset:0; border-radius:20px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.25);
+  pointer-events:none;
+}
+.map-frame iframe{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  border:0; filter: saturate(92%) contrast(98%);
+}
+
+.maps-btn{
+  margin-top: clamp(1.4rem, 4vw, 2rem);
+  gap: .6rem;
+}
+.maps-icon{ width:19px; height:19px; flex-shrink:0; }
+
+@media (min-width: 640px){
+  .map-frame{ aspect-ratio: 16 / 9; }
+}
 
 /* =====================================================
    THANK YOU
