@@ -17,6 +17,30 @@
 <script>window.scrollTo({ top: 0, left: 0, behavior: 'instant' });</script>
 
 <!-- ============================= -->
+<!-- CINEMATIC OPENING             -->
+<!-- ============================= -->
+<div class="cinematic-intro" id="cinematicIntro" role="button" tabindex="0" aria-label="کرتە بکە بۆ دەستپێکردن">
+  <video
+    id="introVideo"
+    class="cinematic-video"
+    src="video-1.mp4"
+    preload="auto"
+    playsinline
+    webkit-playsinline="true"
+    muted
+    disablePictureInPicture
+    disableRemotePlayback
+    controlsList="nodownload noremoteplayback nofullscreen"
+    tabindex="-1"
+    aria-hidden="true"
+  ></video>
+  <div class="cinematic-hint" aria-hidden="true">
+    <span class="cinematic-hint-ring"></span>
+    <span>کرتە بکە بۆ دەستپێکردن</span>
+  </div>
+</div>
+
+<!-- ============================= -->
 <!-- LOADING SCREEN                -->
 <!-- ============================= -->
 <div class="loader" id="loader">
@@ -66,28 +90,30 @@
   <!-- ============================= -->
   <section class="hero" id="hero">
     <div class="hero-inner">
-      <p class="hero-eyebrow reveal"></p>
-      <h1 class="hero-title reveal" style="transition-delay:.1s">
-        <span class="name">ڕەیان</span>
-        <span class="hero-icon-wrap" aria-hidden="true">
-          <svg class="hero-icon hero-heart" viewBox="0 0 32 28" fill="none">
-            <defs>
-              <linearGradient id="luxuryHeartGradient" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="var(--soft-gold)"/>
-                <stop offset="45%" stop-color="var(--rose-gold-deep)"/>
-                <stop offset="100%" stop-color="var(--gold-deep)"/>
-              </linearGradient>
-            </defs>
-            <path d="M16 24.5C16 24.5 3.5 17.2 3.5 8.8C3.5 4.6 6.8 1.5 10.7 1.5C13 1.5 15 2.6 16 4.4C17 2.6 19 1.5 21.3 1.5C25.2 1.5 28.5 4.6 28.5 8.8C28.5 17.2 16 24.5 16 24.5Z" stroke="url(#luxuryHeartGradient)" stroke-width="1.3" fill="url(#luxuryHeartGradient)" fill-opacity="0.14" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="name">کاروان</span>
-      </h1>
-      <p class="hero-subtitle reveal" style="transition-delay:.2s">بە دڵخۆشیی گەورەوە بانگهێشتتان دەکەین بۆ بەشداریکردن لە جوانترین ڕۆژی ژیانمان، کاتێک دەستمان بە یەکەوە دەگرین بۆ هەمیشە</p>
-      <div class="hero-date reveal" style="transition-delay:.3s">
-        <span class="hero-date-line"></span>
-        <span>٢٥ی تەممووزی ٢٠٢٦</span>
-        <span class="hero-date-line"></span>
+      <div class="hero-content">
+        <p class="hero-eyebrow reveal hero-reveal"></p>
+        <h1 class="hero-title reveal hero-reveal" style="transition-delay:.1s">
+          <span class="name">ڕەیان</span>
+          <span class="hero-icon-wrap" aria-hidden="true">
+            <svg class="hero-icon hero-heart" viewBox="0 0 32 28" fill="none">
+              <defs>
+                <linearGradient id="luxuryHeartGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="var(--rose-gold)"/>
+                  <stop offset="50%" stop-color="var(--soft-gold)"/>
+                  <stop offset="100%" stop-color="var(--rose-gold-deep)"/>
+                </linearGradient>
+              </defs>
+              <path d="M16 24.5C16 24.5 3.5 17.2 3.5 8.8C3.5 4.6 6.8 1.5 10.7 1.5C13 1.5 15 2.6 16 4.4C17 2.6 19 1.5 21.3 1.5C25.2 1.5 28.5 4.6 28.5 8.8C28.5 17.2 16 24.5 16 24.5Z" stroke="url(#luxuryHeartGradient)" stroke-width="1" fill="url(#luxuryHeartGradient)" fill-opacity="0.1" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="name">کاروان</span>
+        </h1>
+        <p class="hero-subtitle reveal hero-reveal" style="transition-delay:.2s">بە دڵخۆشیی گەورەوە بانگهێشتتان دەکەین بۆ بەشداریکردن لە جوانترین ڕۆژی ژیانمان،ئەویش رۆژی هاوسەرگیریمانە .       </p>
+        <div class="hero-date reveal hero-reveal" style="transition-delay:.3s">
+          <span class="hero-date-line"></span>
+          <span>٢٥ی تەممووزی ٢٠٢٦</span>
+          <span class="hero-date-line"></span>
+        </div>
       </div>
     </div>
   </section>
@@ -235,9 +261,7 @@
 
 <div class="butterfly-field-front" id="butterflyFieldFront" aria-hidden="true"></div>
 
-<footer class="site-footer">
-  <p>بە خۆشەویستییەوە دروستکراوە بۆ ڕەیان &amp; کاروان &nbsp;·&nbsp; ٢٠٢٦</p>
-</footer>
+
 
 <script src="script.js"></script>
 </body>

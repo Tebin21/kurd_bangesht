@@ -55,9 +55,12 @@
 
   /* ---------------------------------------------------
      Scroll-reveal via IntersectionObserver
+     (the hero's own .hero-reveal elements are excluded —
+     they fade in once the cinematic opening finishes,
+     see initCinematicIntro/revealHero below)
      --------------------------------------------------- */
   function initScrollReveal() {
-    var targets = document.querySelectorAll('.reveal, .countdown-grid');
+    var targets = document.querySelectorAll('.reveal:not(.hero-reveal), .countdown-grid');
     if (!('IntersectionObserver' in window) || !targets.length) {
       targets.forEach(function (el) { el.classList.add('in-view'); });
       return;
@@ -72,6 +75,86 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 
     targets.forEach(function (el) { observer.observe(el); });
+  }
+
+  function revealHero() {
+    document.querySelectorAll('.hero-reveal').forEach(function (el) {
+      el.classList.add('in-view');
+    });
+  }
+
+  /* ---------------------------------------------------
+     Cinematic opening — poster on load, plays once on
+     the visitor's first tap/click, then fades away to
+     reveal the hero.
+
+     The intro video's own audio track must never be heard:
+     it stays muted for its entire life. The first tap/click
+     starts the background music (#bgMusic) instead, and that
+     same audio element keeps playing uninterrupted straight
+     through into the site once the intro finishes.
+     --------------------------------------------------- */
+  function initCinematicIntro() {
+    var intro = document.getElementById('cinematicIntro');
+    var video = document.getElementById('introVideo');
+    var music = document.getElementById('bgMusic');
+
+    if (video) {
+      var forceMuted = function () {
+        video.muted = true;
+        video.volume = 0;
+      };
+      forceMuted();
+      video.addEventListener('volumechange', forceMuted);
+    }
+
+    if (!intro || !video) return Promise.resolve();
+
+    document.documentElement.classList.add('intro-active');
+
+    var showFirstFrame = function () {
+      try { video.currentTime = 0; } catch (e) {}
+    };
+    if (video.readyState >= 1) showFirstFrame();
+    else video.addEventListener('loadedmetadata', showFirstFrame, { once: true });
+
+    return new Promise(function (resolve) {
+      var started = false;
+      var finished = false;
+
+      function beginPlayback() {
+        if (started) return;
+        started = true;
+        intro.classList.add('is-playing');
+        video.muted = true;
+        video.play().catch(function () {});
+        if (music) music.play().catch(function () {});
+      }
+
+      ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(function (evt) {
+        window.addEventListener(evt, beginPlayback, { once: true, passive: true });
+      });
+
+      function finish() {
+        if (finished) return;
+        finished = true;
+        intro.classList.add('is-hidden');
+        document.documentElement.classList.remove('intro-active');
+
+        var cleanup = function () {
+          if (intro.parentNode) intro.parentNode.removeChild(intro);
+          resolve();
+        };
+        intro.addEventListener('transitionend', cleanup, { once: true });
+        setTimeout(cleanup, 1800); /* safety net if transitionend never fires */
+      }
+
+      video.addEventListener('ended', finish, { once: true });
+      video.addEventListener('error', function () {
+        beginPlayback();
+        finish();
+      }, { once: true });
+    });
   }
 
   /* ---------------------------------------------------
@@ -165,22 +248,26 @@
       else audio.pause();
     });
 
-    // Start playback the instant the loading screen finishes and the site
-    // becomes visible. preload="auto" (see index.html) has been buffering
-    // the track in the background during the loading screen so this is instant.
-    loaderDone.then(function () {
-      audio.play().catch(function () {
-        // Autoplay blocked by the browser's security policy — arm a
-        // one-time fallback that starts playback on the visitor's very
-        // first tap, click, key press, or scroll, whichever comes first.
-        var startOnGesture = function () {
-          audio.play().catch(function () {});
-        };
-        ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (evt) {
-          window.addEventListener(evt, startOnGesture, { once: true, passive: true });
+    // The cinematic intro (see initCinematicIntro) starts this same
+    // <audio> element directly on the visitor's first tap/click, and it
+    // keeps playing uninterrupted through and beyond the intro — so it
+    // needs no autoplay attempt here. This fallback only matters if the
+    // intro markup isn't present at all.
+    if (!document.getElementById('cinematicIntro')) {
+      loaderDone.then(function () {
+        audio.play().catch(function () {
+          // Autoplay blocked by the browser's security policy — arm a
+          // one-time fallback that starts playback on the visitor's very
+          // first tap, click, key press, or scroll, whichever comes first.
+          var startOnGesture = function () {
+            audio.play().catch(function () {});
+          };
+          ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (evt) {
+            window.addEventListener(evt, startOnGesture, { once: true, passive: true });
+          });
         });
       });
-    });
+    }
   }
 
   /* ---------------------------------------------------
@@ -423,9 +510,11 @@
      --------------------------------------------------- */
   function boot() {
     var loaderDone = initLoader();
+    var introDone = initCinematicIntro();
     initScrollReveal();
     initCountdown();
     initRippleButtons();
+    introDone.then(revealHero);
     initMusicPlayer(loaderDone);
     initParallax();
     initSparkles();
