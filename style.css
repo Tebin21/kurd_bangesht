@@ -370,7 +370,6 @@ section{
   max-width: 40ch;
   margin-inline: auto;
 }
-.section-title + .details-grid{ margin-top: clamp(1.25rem,4vw,2rem); }
 
 /* ---------- Scroll reveal ---------- */
 .reveal{
@@ -391,12 +390,6 @@ section{
 .countdown-grid .count-card{ opacity:0; transform: translateY(20px); transition: opacity .8s var(--ease-luxury), transform .8s var(--ease-luxury); }
 .countdown-grid.in-view .count-card{ opacity:1; transform:translateY(0); }
 
-.details-grid .detail-card:nth-child(1){ transition-delay:.05s; }
-.details-grid .detail-card:nth-child(2){ transition-delay:.12s; }
-.details-grid .detail-card:nth-child(3){ transition-delay:.19s; }
-.details-grid .detail-card:nth-child(4){ transition-delay:.26s; }
-.details-grid .detail-card:nth-child(5){ transition-delay:.33s; }
-.details-grid .detail-card:nth-child(6){ transition-delay:.4s; }
 
 /* =====================================================
    BUTTONS
@@ -601,23 +594,362 @@ section{
 @keyframes gentleFloat{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-8px);} }
 
 /* =====================================================
-   INVITATION CARD
+   SACRED INVITATION
    ===================================================== */
 .invitation-section{ display:flex; justify-content:center; }
-.invitation-card{
-  position:relative;
-  width:100%; max-width: 560px;
-  padding: clamp(2.5rem, 8vw, 4rem) clamp(1.5rem, 6vw, 3rem);
+.inv-inner{
+  width:100%; max-width: 620px;
   text-align:center;
-  border-radius: 28px;
+  display:flex; flex-direction:column; align-items:center;
+}
+
+/* ---------- top ornament ---------- */
+.inv-ornament{
+  width: min(220px, 70vw);
+  margin-bottom: clamp(1.6rem, 5vw, 2.4rem);
+  color: var(--soft-gold);
+  opacity:.75;
+  animation: invOrnFloat 9s ease-in-out infinite;
+}
+.inv-ornament-svg{ width:100%; height:auto; }
+@keyframes invOrnFloat{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-5px); }
+}
+
+/* ---------- Quran verse ---------- */
+.inv-verse-wrap{ margin-bottom: clamp(1.6rem, 5vw, 2.2rem); }
+.inv-verse-arabic{
+  font-family: "Amiri", "doran", serif;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 4.2vw, 1.85rem);
+  line-height: 2.15;
+  color: var(--ink);
+  max-width: 34ch;
+  margin: 0 auto;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+.inv-verse-ref{
+  margin-top: .9rem;
+  font-family: "Amiri", "doran", serif;
+  font-size: clamp(.85rem, 2.2vw, 1rem);
+  color: var(--gold-deep);
+  opacity:.9;
+}
+
+/* ---------- luxury dividers ---------- */
+.inv-divider{
+  display:flex; align-items:center; justify-content:center;
+  gap: .9rem;
+  width: 100%; max-width: 280px;
+  margin: 0 0 clamp(1.6rem, 5vw, 2.2rem);
+}
+.inv-divider-line{
+  flex:1; height:1px;
+  background: linear-gradient(90deg, transparent, var(--soft-gold), transparent);
+}
+.inv-divider-icon{
+  font-size: .85rem;
+  color: var(--soft-gold);
+  text-shadow: 0 0 8px rgba(212,175,106,.6);
+  animation: invSparkTwinkle 3.2s ease-in-out infinite;
+}
+.inv-divider-icon--flower{ color: var(--rose-gold-deep); text-shadow: 0 0 8px rgba(183,110,121,.5); }
+@keyframes invSparkTwinkle{
+  0%,100%{ opacity:.65; transform:scale(1); }
+  50%{ opacity:1; transform:scale(1.2); }
+}
+
+/* ---------- translation card ---------- */
+.inv-translation-card{
+  position:relative;
+  width:100%; max-width: 520px;
+  padding: clamp(2rem, 6vw, 2.8rem) clamp(1.5rem, 5vw, 2.4rem);
+  margin-bottom: clamp(1.6rem, 5vw, 2.2rem);
+  border-radius: 24px;
   background: linear-gradient(160deg, rgba(255,255,255,.6), rgba(247,231,206,.45));
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  box-shadow: var(--glass-shadow);
+}
+.inv-translation-card::before{
+  content:''; position:absolute; inset:0; border-radius:24px; padding:1.5px;
+  background: linear-gradient(135deg, var(--soft-gold), var(--rose-gold), var(--gold-light), var(--soft-gold));
+  background-size: 250% 250%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: gradientDrift 8s ease-in-out infinite;
+  pointer-events:none;
+}
+.inv-card-corner{ position:absolute; width:18px; height:18px; border: 1.5px solid var(--soft-gold); opacity:.6; }
+.inv-card-corner.tl{ top:12px; right:12px; border-left:none; border-bottom:none; }
+.inv-card-corner.tr{ top:12px; left:12px; border-right:none; border-bottom:none; }
+.inv-card-corner.bl{ bottom:12px; right:12px; border-left:none; border-top:none; }
+.inv-card-corner.br{ bottom:12px; left:12px; border-right:none; border-top:none; }
+.inv-translation-text{
+  font-family: var(--font-main);
+  font-size: clamp(1rem, 2.8vw, 1.15rem);
+  line-height: 2.15;
+  color: var(--ink);
+}
+
+/* ---------- meaning ---------- */
+.inv-meaning{ max-width: 46ch; margin: 0 auto clamp(1.6rem, 5vw, 2.2rem); }
+.inv-meaning-title{
+  font-size: clamp(.95rem, 2.6vw, 1.1rem);
+  color: var(--gold-deep);
+  letter-spacing: normal;
+  margin-bottom: .8rem;
+}
+.inv-meaning-text{
+  color: var(--ink-soft);
+  font-size: clamp(.92rem, 2.4vw, 1.02rem);
+  line-height: 2;
+}
+
+/* ---------- signature ---------- */
+.inv-signature{
+  display:flex; align-items:baseline; justify-content:center; flex-wrap:wrap;
+  gap: clamp(.6rem, 2.5vw, 1.2rem);
+  margin-top: .4rem;
+  position:relative;
+}
+.inv-signature::before{
+  content:'';
+  position:absolute; inset: -30% -10%;
+  background: radial-gradient(ellipse at center, rgba(212,175,106,.28), rgba(232,196,192,.14) 55%, transparent 75%);
+  filter: blur(24px);
+  z-index:-1;
+  animation: invSigGlow 5s ease-in-out infinite;
+}
+.inv-sig-name{
+  font-family: "Petit Formal Script", "doran", cursive;
+  font-size: clamp(2.8rem, 11vw, 5rem);
+  line-height: 1;
+  background: linear-gradient(120deg, var(--champagne) 0%, var(--soft-gold) 28%, var(--gold-deep) 48%, var(--rose-gold-deep) 68%, var(--soft-gold) 88%, var(--champagne) 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip:text; color:transparent;
+  filter: brightness(1.14);
+  animation: shimmerText 9s linear infinite, invSigFloat 7s ease-in-out infinite;
+}
+.inv-sig-name:last-child{ animation-delay: 0s, .4s; }
+.inv-sig-amp{
+  font-family: "Petit Formal Script", "doran", cursive;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  color: var(--rose-gold-deep);
+  transform: translateY(-4px) rotate(-4deg);
+  opacity:.9;
+}
+@keyframes invSigFloat{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-6px); }
+}
+@keyframes invSigGlow{
+  0%,100%{ opacity:.55; transform: scale(1); }
+  50%{ opacity:.9; transform: scale(1.06); }
+}
+
+/* =====================================================
+   WEDDING TIMELINE
+   ===================================================== */
+.timeline-section{ text-align:center; }
+.timeline-kicker{
+  color: var(--soft-gold);
+  font-size: 1rem;
+  margin-bottom: .6rem;
+  letter-spacing: normal;
+}
+.timeline-title{
+  background: linear-gradient(120deg, var(--gold-deep), var(--soft-gold) 35%, var(--rose-gold-deep) 65%, var(--soft-gold));
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmerText 7s linear infinite;
+}
+
+.timeline{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.6rem, 5vw, 2.4rem);
+  max-width: 620px;
+  margin: clamp(2rem, 6vw, 3rem) auto 0;
+  text-align: start;
+}
+.timeline::before{
+  content:'';
+  position:absolute;
+  inset-inline-start: clamp(20px, 6vw, 27px);
+  top: 6px; bottom: 6px;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--soft-gold) 8%, var(--rose-gold-deep) 50%, var(--soft-gold) 92%, transparent);
+  box-shadow: 0 0 10px 1px rgba(212,175,106,.45);
+  opacity: .8;
+}
+
+.timeline-item{
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1rem, 4vw, 1.5rem);
+}
+
+.timeline-marker{
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(44px, 10vw, 56px);
+  height: clamp(44px, 10vw, 56px);
+  border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  background: radial-gradient(circle at 35% 28%, #fffaf0, var(--champagne) 55%, var(--gold-light) 100%);
+  border: 1px solid rgba(255,255,255,.6);
+  box-shadow: 0 10px 26px -10px rgba(183,110,121,.5), inset 0 1px 2px rgba(255,255,255,.7);
+  z-index: 1;
+  animation: gentleFloat 5s ease-in-out infinite;
+}
+.timeline-item:nth-child(2) .timeline-marker{ animation-delay: -1s; }
+.timeline-item:nth-child(3) .timeline-marker{ animation-delay: -2s; }
+.timeline-item:nth-child(4) .timeline-marker{ animation-delay: -3s; }
+.timeline-item:nth-child(5) .timeline-marker{ animation-delay: -4s; }
+.timeline-marker::before{
+  content:'';
+  position:absolute; inset:-8px; border-radius:50%;
+  background: radial-gradient(circle, rgba(212,175,106,.5), transparent 70%);
+  filter: blur(6px);
+  animation: weddingGlowPulse 4.2s ease-in-out infinite;
+  z-index:-1;
+}
+.timeline-icon{ font-size: clamp(1.2rem, 4vw, 1.5rem); line-height:1; }
+
+.timeline-card{
+  position: relative;
+  flex: 1 1 auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 18px;
+  padding: clamp(1rem, 4vw, 1.4rem) clamp(1.1rem, 4vw, 1.6rem);
+  margin-top: .35rem;
+  transition: transform var(--dur-fast) var(--ease-luxury), box-shadow var(--dur-fast) var(--ease-luxury), border-color var(--dur-fast);
+}
+.timeline-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 26px 60px -18px rgba(139,105,20,.32);
+  border-color: var(--soft-gold);
+}
+.timeline-time{
+  display:inline-block;
+  font-size: clamp(.72rem, 2.2vw, .82rem);
+  font-weight:600;
+  letter-spacing: normal;
+  color: var(--gold-deep);
+  margin-bottom: .3rem;
+}
+.timeline-event{
+  font-size: clamp(.95rem, 3vw, 1.1rem);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* =====================================================
+   DRESS CODE
+   ===================================================== */
+.dresscode-block{
+  margin-top: clamp(3rem, 8vw, 4.25rem);
+  text-align: center;
+}
+.dresscode-kicker{
+  color: var(--soft-gold);
+  font-size: 1rem;
+  margin-bottom: .5rem;
+  letter-spacing: normal;
+}
+.dresscode-heading{
+  display:inline-block;
+  font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+  background: linear-gradient(120deg, var(--gold-deep), var(--soft-gold) 35%, var(--rose-gold-deep) 65%, var(--soft-gold));
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmerText 7s linear infinite;
+}
+.dresscode-subtitle{
+  color: var(--ink-soft);
+  font-size: clamp(.85rem, 2.4vw, 1rem);
+  max-width: 34ch;
+  margin: .6rem auto 0;
+}
+.dresscode-divider{ display:flex; align-items:center; justify-content:center; margin: clamp(1.2rem,4vw,1.8rem) 0 clamp(1.8rem,5vw,2.4rem); }
+.dresscode-divider span{ width:70px; height:1px; background: linear-gradient(90deg, transparent, var(--soft-gold), transparent); }
+.dresscode-divider::before, .dresscode-divider::after{ content:'✦'; color: var(--soft-gold); margin: 0 .9rem; font-size:.8rem; }
+
+.dresscode-cards{
+  display:grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(.7rem, 4vw, 1.25rem);
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.dresscode-card{
+  position: relative;
+  padding: clamp(1.3rem, 6vw, 1.9rem) clamp(.6rem, 3vw, 1.1rem);
+  border-radius: 18px;
+  text-align: center;
+  background: linear-gradient(160deg, rgba(255,255,255,.6), rgba(247,231,206,.38));
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 24px -16px rgba(139,105,20,.22);
+  transition: transform .5s var(--ease-luxury), box-shadow .5s var(--ease-luxury), border-color .5s;
+}
+.dresscode-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px -16px rgba(139,105,20,.3);
+  border-color: var(--soft-gold);
+}
+
+.dresscode-icon{
+  width: 22px; height:22px;
+  margin: 0 auto .55rem;
+  color: var(--rose-gold-deep);
+}
+
+.dresscode-card-title{ font-size: clamp(.95rem, 3vw, 1.15rem); color: var(--gold-deep); font-weight:700; margin-bottom:.35rem; }
+.dresscode-card-desc{ font-size: clamp(.75rem, 2.2vw, .88rem); color: var(--ink-soft); }
+
+/* =====================================================
+   WEDDING CALENDAR
+   ===================================================== */
+.calendar-section{ text-align:center; }
+
+.calendar-kicker{
+  color: var(--soft-gold);
+  font-size: 1rem;
+  margin-bottom: .6rem;
+  letter-spacing: normal;
+}
+
+.calendar-title{
+  background: linear-gradient(120deg, var(--gold-deep), var(--soft-gold) 35%, var(--rose-gold-deep) 65%, var(--soft-gold));
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmerText 7s linear infinite;
+}
+
+.calendar-card{
+  position: relative;
+  width: 100%; max-width: 480px;
+  margin: clamp(1.25rem, 4vw, 2rem) auto 0;
+  padding: clamp(1.75rem, 6vw, 2.75rem) clamp(1.1rem, 5vw, 2rem);
+  border-radius: 28px;
+  background: linear-gradient(160deg, rgba(255,255,255,.62), rgba(247,231,206,.48));
   backdrop-filter: blur(22px) saturate(140%);
   -webkit-backdrop-filter: blur(22px) saturate(140%);
   border: 1px solid transparent;
   background-clip: padding-box;
   box-shadow: var(--glass-shadow);
 }
-.invitation-card::before{
+.calendar-card::before{
   content:''; position:absolute; inset:0; border-radius:28px; padding:1.5px;
   background: linear-gradient(135deg, var(--soft-gold), var(--rose-gold), var(--gold-light), var(--soft-gold));
   background-size: 250% 250%;
@@ -626,44 +958,147 @@ section{
   animation: gradientDrift 8s ease-in-out infinite;
   pointer-events:none;
 }
-.invitation-corner{ position:absolute; width:22px; height:22px; border: 1.5px solid var(--soft-gold); opacity:.7; }
-.invitation-corner.tl{ top:14px; right:14px; border-left:none; border-bottom:none; }
-.invitation-corner.tr{ top:14px; left:14px; border-right:none; border-bottom:none; }
-.invitation-corner.bl{ bottom:14px; right:14px; border-left:none; border-top:none; }
-.invitation-corner.br{ bottom:14px; left:14px; border-right:none; border-top:none; }
-
-.invitation-ring{ width: 34px; height:34px; margin: 0 auto 1.2rem; color: var(--gold-deep); }
-.invitation-kicker{ font-size: clamp(.85rem,2.4vw,1rem); letter-spacing:normal; color: var(--gold-deep); margin-bottom: .8rem; }
-.invitation-names{ font-size: clamp(2rem, 7vw, 3rem); margin-bottom: 1rem; }
-.invitation-names .amp{ color: var(--rose-gold-deep); }
-.invitation-text{ color: var(--ink-soft); max-width: 42ch; margin: 0 auto; }
-.invitation-divider{ display:flex; align-items:center; justify-content:center; margin: 1.6rem 0; }
-.invitation-divider span{ width:60px; height:1px; background: linear-gradient(90deg, transparent, var(--soft-gold), transparent); }
-.invitation-divider::before, .invitation-divider::after{ content:'✦'; color: var(--soft-gold); margin: 0 .8rem; font-size:.8rem; }
-.invitation-date{ font-weight:600; color: var(--gold-deep); letter-spacing:normal; }
-
-/* =====================================================
-   DETAILS
-   ===================================================== */
-.details-grid{
-  display:grid; grid-template-columns: repeat(2, 1fr);
-  gap: clamp(.9rem, 3vw, 1.4rem);
+.calendar-card::after{
+  content:''; position:absolute; inset:-8%; z-index:-1; border-radius:36px;
+  background: radial-gradient(circle at 50% 38%, rgba(212,175,106,.4), transparent 70%);
+  filter: blur(20px);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 1.6s var(--ease-luxury) .2s;
 }
-.detail-card{
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 20px;
-  padding: clamp(1.2rem, 4vw, 1.8rem) 1rem;
-  text-align:center;
-  transition: transform var(--dur-fast) var(--ease-luxury), box-shadow var(--dur-fast) var(--ease-luxury);
+.calendar-card.in-view::after{ opacity:1; }
+
+.calendar-corner{ position:absolute; width:22px; height:22px; border: 1.5px solid var(--soft-gold); opacity:.7; }
+.calendar-corner.tl{ top:14px; right:14px; border-left:none; border-bottom:none; }
+.calendar-corner.tr{ top:14px; left:14px; border-right:none; border-bottom:none; }
+.calendar-corner.bl{ bottom:14px; right:14px; border-left:none; border-top:none; }
+.calendar-corner.br{ bottom:14px; left:14px; border-right:none; border-top:none; }
+
+.calendar-month{ margin-bottom: clamp(1.1rem, 4vw, 1.6rem); }
+.calendar-month-name{
+  display:block;
+  font-size: clamp(1.4rem, 6vw, 1.9rem);
+  font-weight:800;
+  background: linear-gradient(120deg, var(--gold-deep), var(--soft-gold) 40%, var(--rose-gold-deep) 70%, var(--soft-gold));
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmerText 6s linear infinite;
 }
-.detail-card:hover{ transform: translateY(-6px); box-shadow: 0 26px 60px -18px rgba(139,105,20,.32); }
-.detail-card svg{ width: 30px; height:30px; margin:0 auto .8rem; color: var(--rose-gold-deep); }
-.detail-card h3{ font-size: clamp(.9rem, 2.6vw, 1.05rem); margin-bottom:.35rem; color: var(--gold-deep); }
-.detail-card p{ font-size: clamp(.82rem, 2.4vw, .95rem); color: var(--ink-soft); }
+.calendar-month-year{
+  display:block;
+  margin-top:.2rem;
+  font-size: clamp(.8rem, 2.4vw, .95rem);
+  letter-spacing: normal;
+  color: var(--ink-soft);
+}
+
+.calendar-weekdays{
+  display:grid; grid-template-columns: repeat(7, 1fr);
+  gap: clamp(.2rem, 1.5vw, .4rem);
+  margin-bottom: clamp(.5rem, 2vw, .8rem);
+}
+.calendar-weekdays span{
+  font-size: clamp(.72rem, 2.2vw, .82rem);
+  font-weight:600;
+  color: var(--ink-soft);
+  letter-spacing: normal;
+}
+
+.calendar-grid{
+  display:grid; grid-template-columns: repeat(7, 1fr);
+  gap: clamp(.25rem, 1.8vw, .5rem);
+}
+.cal-cell{
+  position:relative;
+  aspect-ratio: 1 / 1;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  font-size: clamp(.78rem, 2.6vw, .92rem);
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.cal-cell.empty{ visibility:hidden; }
+.cal-cell:not(.empty):not(.wedding-day){
+  transition: transform var(--dur-fast) var(--ease-luxury), background var(--dur-fast) var(--ease-luxury), color var(--dur-fast) var(--ease-luxury);
+}
+.cal-cell:not(.empty):not(.wedding-day):hover{
+  background: rgba(212,175,106,.14);
+  color: var(--gold-deep);
+  transform: scale(1.08);
+}
+
+/* ---------- The wedding day (25) ---------- */
+.cal-cell.wedding-day{
+  z-index: 5;
+  font-weight:800;
+  font-size: clamp(.95rem, 3.4vw, 1.2rem);
+}
+.wd-glow{
+  position:absolute; inset:-55%; z-index:1; border-radius:50%;
+  background: radial-gradient(circle, rgba(212,175,106,.55), rgba(232,196,192,.28) 55%, transparent 75%);
+  filter: blur(9px);
+  pointer-events:none;
+  animation: weddingGlowPulse 4.2s ease-in-out infinite;
+}
+.wd-ring{
+  position:absolute; inset:-20%; z-index:2; border-radius:50%;
+  border: 1.4px solid var(--rose-gold-deep);
+  opacity:.6;
+  pointer-events:none;
+  animation: weddingRingPulse 3.6s ease-out infinite;
+}
+.wd-ring-2{ border-color: var(--soft-gold); animation-delay: 1.2s; }
+.wd-number{
+  position:relative; z-index:3;
+  display:flex; align-items:center; justify-content:center;
+  width:80%; height:80%;
+  border-radius:50%;
+  color: #fffaf0;
+  background: radial-gradient(circle at 35% 28%, #fff8ea, var(--soft-gold) 55%, var(--rose-gold-deep) 100%);
+  border: 1px solid rgba(255,255,255,.55);
+  box-shadow: 0 8px 20px -6px rgba(183,110,121,.55), inset 0 1px 2px rgba(255,255,255,.65);
+  animation: weddingDayBreathe 4.2s ease-in-out infinite;
+}
+.wd-sparkles{ position:absolute; inset:-50%; z-index:4; pointer-events:none; }
+.wd-sparkles i{
+  position:absolute;
+  width:3px; height:3px; border-radius:50%;
+  background: var(--soft-gold);
+  box-shadow: 0 0 6px 1.5px rgba(212,175,106,.85);
+  animation: sparkleTwinkle 2.6s ease-in-out infinite;
+}
+.wd-sparkles i:nth-child(1){ top:2%; left:18%; animation-delay:.1s; }
+.wd-sparkles i:nth-child(2){ top:12%; left:88%; animation-delay:.7s; }
+.wd-sparkles i:nth-child(3){ top:50%; left:98%; animation-delay:1.3s; }
+.wd-sparkles i:nth-child(4){ top:88%; left:80%; animation-delay:1.9s; }
+.wd-sparkles i:nth-child(5){ top:92%; left:14%; animation-delay:.4s; }
+.wd-sparkles i:nth-child(6){ top:46%; left:0%; animation-delay:1.6s; }
+
+@keyframes weddingDayBreathe{
+  0%,100%{ transform: scale(1); }
+  50%{ transform: scale(1.07); }
+}
+@keyframes weddingRingPulse{
+  0%{ transform: scale(.8); opacity:.7; }
+  100%{ transform: scale(1.65); opacity:0; }
+}
+@keyframes weddingGlowPulse{
+  0%,100%{ opacity:.55; transform: scale(1); }
+  50%{ opacity:.9; transform: scale(1.15); }
+}
+
+@keyframes softGoldGlow{
+  0%,100%{ opacity:.3; transform: scale(1); }
+  50%{ opacity:.5; transform: scale(1.05); }
+}
+
+.calendar-footer{ margin-top: clamp(1.5rem, 5vw, 2.1rem); }
+.calendar-caption{
+  font-weight:600;
+  color: var(--gold-deep);
+  letter-spacing: normal;
+  font-size: clamp(.82rem, 2.4vw, .95rem);
+}
 
 /* =====================================================
    LOCATION
@@ -774,10 +1209,6 @@ section{
 /* =====================================================
    RESPONSIVE — tablet & desktop
    ===================================================== */
-@media (min-width: 640px){
-  .details-grid{ grid-template-columns: repeat(3, 1fr); }
-}
-
 @media (min-width: 960px){
   section{ padding-top: 4.75rem; padding-bottom: 4.75rem; }
   .hero-inner{ max-width: 860px; }

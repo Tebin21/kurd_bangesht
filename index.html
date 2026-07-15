@@ -12,6 +12,9 @@
 </script>
 
 <link rel="preload" as="image" href="video-poster.jpg" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -156,71 +159,241 @@
   </section>
 
   <!-- ============================= -->
-  <!-- INVITATION CARD               -->
+  <!-- SACRED INVITATION              -->
   <!-- ============================= -->
   <section class="invitation-section" id="invitation">
-    <div class="invitation-card reveal">
-      <span class="invitation-corner tl" aria-hidden="true"></span>
-      <span class="invitation-corner tr" aria-hidden="true"></span>
-      <span class="invitation-corner bl" aria-hidden="true"></span>
-      <span class="invitation-corner br" aria-hidden="true"></span>
+    <div class="inv-inner">
 
-      <svg class="invitation-ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-        <circle cx="12" cy="14" r="6.5"/>
-        <path d="M9.5 8 12 3l2.5 5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <div class="inv-ornament reveal" aria-hidden="true">
+        <svg class="inv-ornament-svg" viewBox="0 0 220 60" fill="none">
+          <defs>
+            <linearGradient id="inv-orn-grad" x1="0" y1="0" x2="220" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="var(--rose-gold)"/>
+              <stop offset=".5" stop-color="var(--soft-gold)"/>
+              <stop offset="1" stop-color="var(--rose-gold)"/>
+            </linearGradient>
+          </defs>
+          <path d="M4 30 H74" stroke="url(#inv-orn-grad)" stroke-width="1" stroke-linecap="round"/>
+          <path d="M146 30 H216" stroke="url(#inv-orn-grad)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="86" cy="30" r="1.6" fill="var(--soft-gold)"/>
+          <circle cx="134" cy="30" r="1.6" fill="var(--rose-gold-deep)"/>
+          <g transform="translate(110 30)" stroke="url(#inv-orn-grad)" stroke-width="1.1" stroke-linejoin="round">
+            <rect x="-11" y="-11" width="22" height="22"/>
+            <rect x="-11" y="-11" width="22" height="22" transform="rotate(45)"/>
+          </g>
+        </svg>
+      </div>
 
-      <p class="invitation-kicker">بە دڵخۆشییەوە بانگهێشتتان دەکەین</p>
-      <h2 class="invitation-names">ڕەیان <span class="amp">&amp;</span> کاروان</h2>
-      <p class="invitation-text">هاوبەشی خۆشییەکانمان بن، لە ئاهەنگی بەیەکگەیشتنمان کە دەبێتە دەستپێکی گەشتێکی نوێ لە ژیانماندا</p>
-      <div class="invitation-divider"><span></span></div>
-      <p class="invitation-date">٢٥ی تەممووزی ٢٠٢٦ &nbsp;•&nbsp; هۆڵی ئۆسکار</p>
+      <div class="inv-verse-wrap reveal" style="transition-delay:.08s">
+        <p class="inv-verse-arabic" lang="ar" dir="rtl">﴿وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ﴾</p>
+        <p class="inv-verse-ref">﴿سورەتی ڕۆم - ئایەتی ٢١﴾</p>
+      </div>
+
+      <div class="inv-divider reveal" style="transition-delay:.14s" aria-hidden="true">
+        <span class="inv-divider-line"></span>
+        <span class="inv-divider-icon">✦</span>
+        <span class="inv-divider-line"></span>
+      </div>
+
+      <div class="inv-translation-card reveal" style="transition-delay:.2s">
+        <span class="inv-card-corner tl" aria-hidden="true"></span>
+        <span class="inv-card-corner tr" aria-hidden="true"></span>
+        <span class="inv-card-corner bl" aria-hidden="true"></span>
+        <span class="inv-card-corner br" aria-hidden="true"></span>
+        <p class="inv-translation-text">ئەم ڕۆژە پیرۆزە تەنها ئاهەنگێک نییە، بەڵکو دەستپێکی بەڵێنێکی هەمیشەییە لەنێوان دوو دڵ. بە هیوای ئەوەی هەموو ڕۆژێکی ژیانیان پڕ بێت لە خۆشەویستی، ئارامی، میهرەبانی و بەختەوەری، و هەر هەنگاوێکیان بە یەکەوە سەرچاوەی خۆشی و سەرکەوتن بێت.</p>
+      </div>
+
+      <div class="inv-divider reveal" style="transition-delay:.26s" aria-hidden="true">
+        <span class="inv-divider-line"></span>
+        <span class="inv-divider-icon inv-divider-icon--flower">✿</span>
+        <span class="inv-divider-line"></span>
+      </div>
+
+      <div class="inv-meaning reveal" style="transition-delay:.32s">
+        <h3 class="inv-meaning-title">مانای ئایەت</h3>
+        <p class="inv-meaning-text">ژیانی هاوسەرگیری بە خۆشەویستی، ئارامی و میهرەبانی بنیات دەنرێت. ئەم ئایەتە پیرۆزە بیرمان دەخاتەوە کە باشترین پەیوەندی نێوان دوو دڵ، ئەوەیە کە لەسەر ڕەحم و خۆشەویستی بنیات نرابێت.</p>
+      </div>
+
+      <div class="inv-divider reveal" style="transition-delay:.38s" aria-hidden="true">
+        <span class="inv-divider-line"></span>
+        <span class="inv-divider-icon">✦</span>
+        <span class="inv-divider-line"></span>
+      </div>
+
+      <div class="inv-signature reveal" dir="ltr" style="transition-delay:.44s">
+        <span class="inv-sig-name">Rayan</span>
+        <span class="inv-sig-amp">&amp;</span>
+        <span class="inv-sig-name">Karwan</span>
+      </div>
+
     </div>
   </section>
 
   <!-- ============================= -->
-  <!-- WEDDING DETAILS               -->
+  <!-- WEDDING TIMELINE               -->
   <!-- ============================= -->
-  <section class="details-section" id="details">
-    <h2 class="section-title reveal">وردەکاری ئاهەنگ</h2>
-    <div class="details-grid">
+  <section class="timeline-section" id="details">
+    <p class="timeline-kicker reveal">✦</p>
+    <h2 class="section-title timeline-title reveal" style="transition-delay:.05s">بەرنامەی ڕۆژی هاوسەرگیری</h2>
+    <p class="section-subtitle reveal" style="transition-delay:.1s">هەنگاو بە هەنگاو، لەگەڵمان هاوبەشی ئەم ڕۆژە تایبەتە بن.</p>
 
-      <div class="detail-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7.5-4.7-10.2-9.3C.3 8.9 1.6 5.3 5 4.4c2-.5 3.9.3 5 2 .1.1.2.1.3 0 1.1-1.7 3-2.5 5-2 3.4.9 4.7 4.5 3.2 7.3C19.5 16.3 12 21 12 21z" stroke-linejoin="round"/></svg>
-        <h3>بووک</h3>
-        <p>ڕەیان</p>
+    <div class="timeline">
+
+      <div class="timeline-item reveal" style="transition-delay:.05s">
+        <div class="timeline-marker"><span class="timeline-icon" aria-hidden="true">🕖</span></div>
+        <div class="timeline-card">
+          <span class="timeline-time">٧:٠٠ ئێوارە</span>
+          <h3 class="timeline-event">دەستپێکی پێشوازی میوانان</h3>
+        </div>
       </div>
 
-      <div class="detail-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="15" r="4.5"/><circle cx="15" cy="9" r="4.5"/></svg>
-        <h3>زاوا</h3>
-        <p>کاروان</p>
+      <div class="timeline-item reveal" style="transition-delay:.13s">
+        <div class="timeline-marker"><span class="timeline-icon" aria-hidden="true">🕗</span></div>
+        <div class="timeline-card">
+          <span class="timeline-time">٨:٠٠ ئێوارە</span>
+          <h3 class="timeline-event">دەستپێکردنی حەفلەی هاوسەرگیری</h3>
+        </div>
       </div>
 
-      <div class="detail-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke-linecap="round"/></svg>
-        <h3>بەروار</h3>
-        <p>٢٥ی تەممووزی ٢٠٢٦</p>
+      <div class="timeline-item reveal" style="transition-delay:.21s">
+        <div class="timeline-marker"><span class="timeline-icon" aria-hidden="true">🕘</span></div>
+        <div class="timeline-card">
+          <span class="timeline-time">٩:٠٠ ئێوارە</span>
+          <h3 class="timeline-event">وێنەگرتنی یادگاری</h3>
+        </div>
       </div>
 
-      <div class="detail-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-        <h3>شوێن</h3>
-        <p>هۆڵی ئۆسکار</p>
+      <div class="timeline-item reveal" style="transition-delay:.29s">
+        <div class="timeline-marker"><span class="timeline-icon" aria-hidden="true">🕤</span></div>
+        <div class="timeline-card">
+          <span class="timeline-time">٩:٣٠ ئێوارە</span>
+          <h3 class="timeline-event">خواردنی شەوی ئاهەنگ</h3>
+        </div>
       </div>
 
-      <div class="detail-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2.5l2.6 5.6 6 .8-4.4 4.3 1.1 6-5.3-2.9-5.3 2.9 1.1-6-4.4-4.3 6-.8L12 2.5z" stroke-linejoin="round"/></svg>
-        <h3>کات</h3>
-        <p>کاتژمێر ٦:٠٠ی ئێوارە</p>
+      <div class="timeline-item reveal" style="transition-delay:.37s">
+        <div class="timeline-marker"><span class="timeline-icon" aria-hidden="true">🕙</span></div>
+        <div class="timeline-card">
+          <span class="timeline-time">١٠:٣٠ ئێوارە</span>
+          <h3 class="timeline-event">هاوبەشبوون لە ئاهەنگ و خۆشی</h3>
+        </div>
       </div>
 
-      <div class="detail-card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="7" r="3"/><circle cx="15" cy="7" r="3"/><path d="M4 20c.5-3.5 3-5.5 5-5.5s2 .5 3 .5 1-.5 3-.5 4.5 2 5 5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>کۆدی جلوبەرگ</h3>
-        <p>ڕازاوەیی فەرمی — ڕەنگی ئاڵتوونی و کرێمی</p>
+    </div>
+
+    <div class="dresscode-block">
+      <p class="dresscode-kicker reveal">✦</p>
+      <h3 class="dresscode-heading reveal">شێوازی جل</h3>
+      <p class="dresscode-subtitle reveal">تکایە لەگەڵمان هاوبەشی جوانی ئەم ڕۆژە بن.</p>
+      <div class="dresscode-divider reveal"><span></span></div>
+
+      <div class="dresscode-cards">
+
+        <div class="dresscode-card men reveal" style="transition-delay:.08s">
+          <svg class="dresscode-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <circle cx="24" cy="13.5" r="6.5"/>
+            <path d="M10.5 40.5 13 27c.6-3.4 2.4-6 8-6h6c5.6 0 7.4 2.6 8 6l2.5 13.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.5 21 24 30.5 29.5 21" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.3 25.6 24 27.3 26.7 25.6" fill="currentColor" stroke="none"/>
+          </svg>
+          <h4 class="dresscode-card-title">پیاوان</h4>
+          <p class="dresscode-card-desc">جلی کوردی یان قات</p>
+        </div>
+
+        <div class="dresscode-card women reveal" style="transition-delay:.18s">
+          <svg class="dresscode-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M17.7 12.8c-.2-4 2.6-6.3 6.3-6.3s6.5 2.3 6.3 6.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="24" cy="13.5" r="6.5"/>
+            <path d="M13 40.5c-.6-9 .8-13.6 5-16.7 2-1.5 4-2.3 6-2.3s4 .8 6 2.3c4.2 3.1 5.6 7.7 5 16.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 21.8 24 26.5 28 21.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="15.5" cy="17.5" r=".9" fill="currentColor" stroke="none"/>
+            <circle cx="32.5" cy="17.5" r=".9" fill="currentColor" stroke="none"/>
+          </svg>
+          <h4 class="dresscode-card-title">ئافرەتان</h4>
+          <p class="dresscode-card-desc">جلی کوردی یان عەزی</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- WEDDING CALENDAR              -->
+  <!-- ============================= -->
+  <section class="calendar-section" id="calendar">
+    <p class="calendar-kicker reveal">✦</p>
+    <h2 class="section-title calendar-title reveal" style="transition-delay:.05s">ڕۆژی چاوەڕوانکراو</h2>
+    <p class="section-subtitle reveal" style="transition-delay:.1s">لەم ڕۆژەوە گەشتی خۆشەویستیمان دەستپێدەکات؛ گەشتێکی هەتاهەتایی پڕ لە یەکبوون و خۆشی</p>
+
+    <div class="calendar-card reveal" style="transition-delay:.18s">
+      <span class="calendar-corner tl" aria-hidden="true"></span>
+      <span class="calendar-corner tr" aria-hidden="true"></span>
+      <span class="calendar-corner bl" aria-hidden="true"></span>
+      <span class="calendar-corner br" aria-hidden="true"></span>
+
+      <div class="calendar-month">
+        <span class="calendar-month-name">تەممووزی</span>
+        <span class="calendar-month-year">٢٠٢٦</span>
       </div>
 
+      <div class="calendar-weekdays">
+        <span title="یەکشەمە">ی</span>
+        <span title="دووشەمە">د</span>
+        <span title="سێشەمە">س</span>
+        <span title="چوارشەمە">چ</span>
+        <span title="پێنجشەمە">پ</span>
+        <span title="هەینی">هـ</span>
+        <span title="شەممە">ش</span>
+      </div>
+
+      <div class="calendar-grid">
+        <span class="cal-cell empty" aria-hidden="true"></span>
+        <span class="cal-cell empty" aria-hidden="true"></span>
+        <span class="cal-cell empty" aria-hidden="true"></span>
+        <span class="cal-cell">١</span>
+        <span class="cal-cell">٢</span>
+        <span class="cal-cell">٣</span>
+        <span class="cal-cell">٤</span>
+        <span class="cal-cell">٥</span>
+        <span class="cal-cell">٦</span>
+        <span class="cal-cell">٧</span>
+        <span class="cal-cell">٨</span>
+        <span class="cal-cell">٩</span>
+        <span class="cal-cell">١٠</span>
+        <span class="cal-cell">١١</span>
+        <span class="cal-cell">١٢</span>
+        <span class="cal-cell">١٣</span>
+        <span class="cal-cell">١٤</span>
+        <span class="cal-cell">١٥</span>
+        <span class="cal-cell">١٦</span>
+        <span class="cal-cell">١٧</span>
+        <span class="cal-cell">١٨</span>
+        <span class="cal-cell">١٩</span>
+        <span class="cal-cell">٢٠</span>
+        <span class="cal-cell">٢١</span>
+        <span class="cal-cell">٢٢</span>
+        <span class="cal-cell">٢٣</span>
+        <span class="cal-cell">٢٤</span>
+        <span class="cal-cell wedding-day" aria-label="٢٥ی تەممووزی ٢٠٢٦ — ڕۆژی هاوسەرگیریمان">
+          <span class="wd-glow" aria-hidden="true"></span>
+          <span class="wd-ring" aria-hidden="true"></span>
+          <span class="wd-ring wd-ring-2" aria-hidden="true"></span>
+          <span class="wd-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="wd-number">٢٥</span>
+        </span>
+        <span class="cal-cell">٢٦</span>
+        <span class="cal-cell">٢٧</span>
+        <span class="cal-cell">٢٨</span>
+        <span class="cal-cell">٢٩</span>
+        <span class="cal-cell">٣٠</span>
+        <span class="cal-cell">٣١</span>
+        <span class="cal-cell empty" aria-hidden="true"></span>
+      </div>
+
+      <div class="calendar-footer">
+        <div class="invitation-divider"><span></span></div>
+        <p class="calendar-caption">شەممە &nbsp;•&nbsp; کاتژمێر ٦:٠٠ی ئێوارە &nbsp;•&nbsp; هۆڵی ئۆسکار</p>
+      </div>
     </div>
   </section>
 
@@ -260,9 +433,9 @@
   <!-- ============================= -->
   <section class="thanks-section" id="thanks">
     <div class="thanks-monogram reveal">
-      <span>ڕ</span>
+      <span>R</span>
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.7-10.2-9.3C.3 8.9 1.6 5.3 5 4.4c2-.5 3.9.3 5 2 .1.1.2.1.3 0 1.1-1.7 3-2.5 5-2 3.4.9 4.7 4.5 3.2 7.3C19.5 16.3 12 21 12 21z"/></svg>
-      <span>ک</span>
+      <span>K</span>
     </div>
     <h2 class="reveal">سوپاس بۆ خۆشەویستیتان</h2>
     <p class="reveal">بوونتان لەگەڵمان لەم ڕۆژە هەستیارەدا، مایەی شانازی و خۆشحاڵیمانە. سوپاسی گەورەتان بۆ هەموو خۆشەویستی و پشتگیرییەکانتان — بێگومان ئێوە بەشێکن لە جوانترین ڕۆژی ژیانمان.</p>

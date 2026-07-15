@@ -6,7 +6,26 @@
       "Bash(rm -f \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\8ba96806-5d60-499d-81cb-e80ff5c608b4\\\\scratchpad\"/shot-*.png \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\8ba96806-5d60-499d-81cb-e80ff5c608b4\\\\scratchpad\"/verify.js)",
       "Bash(pkill -f \"http.server 8791\")",
       "PowerShell(Get-CimInstance Win32_Process -Filter \"CommandLine LIKE '%8791%'\" | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }; \"done\")",
-      "PowerShell($procs = Get-CimInstance Win32_Process -Filter \"CommandLine LIKE '%8791%'\"; $procs | Select-Object ProcessId, CommandLine; foreach \\($p in $procs\\) { Stop-Process -Id $p.ProcessId -Force }; \"done\")"
+      "PowerShell($procs = Get-CimInstance Win32_Process -Filter \"CommandLine LIKE '%8791%'\"; $procs | Select-Object ProcessId, CommandLine; foreach \\($p in $procs\\) { Stop-Process -Id $p.ProcessId -Force }; \"done\")",
+      "Bash(node check_overflow.js)",
+      "Bash(node find_overflow_elements.js)",
+      "Bash(sed -e \"s/width: 390, height: 844, deviceScaleFactor: 2, mobile: true, screenWidth: 390, screenHeight: 844/width: 1440, height: 900, deviceScaleFactor: 1, mobile: false, screenWidth: 1440, screenHeight: 900/\" -e \"s/edge-overflow-check2/edge-overflow-check3/\" -e \"s/9334/9335/\" find_overflow_elements.js)",
+      "Bash(node find_overflow_desktop.js)",
+      "Bash(grep -n \"^html, body\\\\|position: relative;$\" style.css)",
+      "Bash(grep -E \"^\\\\+.*html, body|^\\\\+.*\\\\.loader\\\\{|^\\\\+  overflow\")",
+      "Bash(PORT=9340 W=375 H=667 DUR=22 node diagnose.js)",
+      "Bash(PORT=9341 W=320 H=650 DUR=25 node diagnose.js)",
+      "Bash(PORT=9342 W=375 H=812 DUR=25 node diagnose.js)",
+      "Bash(PORT=9350 W=375 H=812 DUR=15 node diagnose.js)",
+      "Bash(grep -n -i \"overflow-x\\\\|body{\\\\|html{\\\\|html,\\\\s*body\\\\|width:\\\\s*100vw\\\\|left:\\\\s*50%\\\\|margin-left\\\\|margin-right\\\\|position:\\\\s*absolute\")",
+      "Bash(npm ls *)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8791/index.html)",
+      "Bash(node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\39e1d344-5fe6-4068-9c7d-b328e5319215\\\\scratchpad\\\\check_overflow.js\")",
+      "Bash(timeout 20 npx --yes playwright install webkit)",
+      "Bash(timeout 40 npx --yes playwright install firefox)",
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\705bc6b22212b352\\\\node_modules\" node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\39e1d344-5fe6-4068-9c7d-b328e5319215\\\\scratchpad\\\\check_multi_engine.js\")",
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\705bc6b22212b352\\\\node_modules\" node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\39e1d344-5fe6-4068-9c7d-b328e5319215\\\\scratchpad\\\\verify_fix.js\")"
     ]
   }
 }
