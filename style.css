@@ -428,10 +428,13 @@ section{
    HERO
    ===================================================== */
 .hero{
+  width: 100%;
   max-width:none;
-  min-height: 100svh;
+  min-height: 100vh;   /* fallback for browsers without svh/dvh support */
+  min-height: 100svh;  /* fills the smallest possible viewport (toolbar shown) */
+  min-height: 100dvh;  /* tracks the live viewport as mobile toolbars show/hide */
   display:flex; align-items:center; justify-content:center; text-align:center;
-  padding: 5rem 1.25rem 2.5rem;
+  padding: calc(5rem + env(safe-area-inset-top, 0px)) calc(1.25rem + env(safe-area-inset-right, 0px)) calc(2.5rem + env(safe-area-inset-bottom, 0px)) calc(1.25rem + env(safe-area-inset-left, 0px));
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -1216,7 +1219,11 @@ section{
 
 @media (max-width: 480px){
   section{ padding-top: 2rem; padding-bottom: 2rem; }
-  .hero{ padding-top: 4rem; padding-bottom: 2rem; background-position: center 30%; }
+  .hero{
+    padding-top: calc(4rem + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+    background-position: center 30%;
+  }
   .thanks-section{ padding-bottom: 2.25rem; }
 }
 
