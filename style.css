@@ -18,6 +18,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face{
+  font-family: "NizarNastaliqKurdish";
+  src: url("NizarNastaliqKurdish.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,6 +50,11 @@ ul, ol { list-style: none; }
   --lavender:#C9B8DB;
   --ink:#4A3F35;
   --ink-soft:#7A6C5D;
+  --deep-bronze:#8B5E34;
+  --cocoa-brown:#6B4630;
+  --dark-rose-gold:#9C5B56;
+  --antique-bronze:#7C5A38;
+  --champagne-bronze:#A67C4E;
 
   /* glass */
   --glass-bg: rgba(255,253,249,0.55);
@@ -462,35 +474,56 @@ section{
 .hero-inner{ position:relative; z-index:1; max-width: 720px; transform: translate3d(calc(var(--mx) * -1), calc(var(--my) * -1), 0); transition: transform .2s ease-out; }
 .hero-content{ position:relative; }
 
+.hero-flower{
+  position:absolute;
+  z-index:0;
+  width: clamp(140px, 46vw, 320px);
+  aspect-ratio: 1024 / 1536;
+  pointer-events:none;
+}
+.hero-flower--tl{ top:0; left:0; transform: translate(-18%, -14%); }
+.hero-flower--br{ bottom:0; right:0; transform: translate(18%, 14%); }
+.hero-flower-img{
+  display:block; width:100%; height:100%;
+  object-fit:contain;
+  animation: heroFlowerFloat 10s ease-in-out infinite;
+}
+.hero-flower--br .hero-flower-img{ animation-duration: 11s; animation-delay: -4s; }
+@keyframes heroFlowerFloat{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(3px); }
+}
+
 .hero-eyebrow{
-  font-size: clamp(.85rem, 2.4vw, 1rem);
-  letter-spacing: normal;
-  color: var(--gold-deep);
-  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 clamp(1.3rem, 4vw, 2.1rem);
+  font-family: "NizarNastaliqKurdish", "doran", serif;
+  font-weight: 400;
+  font-size: clamp(3.3rem, 10.7vw, 4.6rem);
+  letter-spacing: .03em;
+  line-height: 1.25;
+  text-align: center;
+  color: #fff;
   text-shadow:
-    0 1px 1px rgba(30,20,12,.4),
-    0 3px 6px rgba(30,20,12,.25),
-    0 0 6px rgba(184,147,90,.18);
+    0 1px 2px rgba(150,112,74,.18),
+    0 4px 14px rgba(150,112,74,.12);
 }
 .hero-title{
-  display:flex; align-items:center; justify-content:center; gap: clamp(.5rem, 3vw, 1.2rem);
-  font-size: clamp(3rem, 13.75vw, 6.5rem);
+  display:flex; align-items:center; justify-content:center; gap: clamp(.75rem, 4vw, 1.6rem);
+  font-size: clamp(3.6rem, 16.5vw, 7.8rem);
   font-weight: 800;
   line-height: 1.15;
-  margin-bottom: 1.4rem;
+  margin: 0 0 clamp(1.7rem, 4.8vw, 2.5rem);
   flex-wrap: wrap;
 }
 .hero-title .name{
-  background: linear-gradient(120deg, var(--champagne) 0%, var(--soft-gold) 28%, var(--gold-deep) 48%, var(--rose-gold-deep) 68%, var(--soft-gold) 88%, var(--champagne) 100%);
+  font-family: "NizarNastaliqKurdish", "doran", sans-serif;
+  background: linear-gradient(120deg, var(--deep-bronze) 0%, var(--cocoa-brown) 20%, var(--dark-rose-gold) 40%, var(--antique-bronze) 60%, var(--champagne-bronze) 80%, var(--deep-bronze) 100%);
   background-size: 220% auto;
   -webkit-background-clip: text; background-clip:text; color:transparent;
   animation: shimmerText 6s linear infinite, heroNameFloat 8s ease-in-out infinite;
-  text-shadow:
-    0 1px 1px rgba(40,28,18,.5),
-    0 4px 8px rgba(40,28,18,.35),
-    0 10px 22px rgba(40,28,18,.22),
-    0 0 6px rgba(216,180,120,.4);
-  filter: brightness(1.16);
+  text-shadow: 0 2px 6px rgba(74,52,34,.18);
 }
 @keyframes heroNameFloat{
   0%,100%{ transform: translateY(0); }
@@ -499,8 +532,8 @@ section{
 .hero-icon-wrap{
   position:relative;
   display:inline-flex; align-items:center; justify-content:center;
-  width: clamp(1.9rem, 6vw, 2.7rem);
-  height: clamp(1.2rem, 3.7vw, 1.7rem);
+  width: clamp(2.3rem, 7.2vw, 3.25rem);
+  height: clamp(1.45rem, 4.5vw, 2.05rem);
   animation: heroIconFloat 6.5s ease-in-out infinite;
 }
 .hero-icon-wrap::before{
@@ -534,14 +567,17 @@ section{
 }
 
 .hero-subtitle{
-  font-size: clamp(1rem, 2.6vw, 1.2rem);
+  font-family: "NizarNastaliqKurdish", serif;
+  font-weight: 400;
+  font-size: clamp(1.55rem, 4.28vw, 2.06rem);
+  line-height: 2.35;
+  letter-spacing: normal;
   color: var(--cream);
-  max-width: 46ch; margin: 0 auto 1.8rem;
+  max-width: 92%;
+  margin: clamp(2.5rem, 6.8vw, 3.6rem) auto 0;
   text-shadow:
-    0 1px 1px rgba(30,20,12,.55),
-    0 3px 7px rgba(30,20,12,.4),
-    0 8px 18px rgba(30,20,12,.26),
-    0 0 6px rgba(184,147,90,.28);
+    0 2px 8px rgba(30,20,12,.26),
+    0 0 4px rgba(184,147,90,.15);
 }
 /* =====================================================
    COUNTDOWN
