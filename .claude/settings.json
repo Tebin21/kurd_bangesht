@@ -25,7 +25,9 @@
       "Bash(timeout 20 npx --yes playwright install webkit)",
       "Bash(timeout 40 npx --yes playwright install firefox)",
       "Bash(NODE_PATH=\"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\705bc6b22212b352\\\\node_modules\" node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\39e1d344-5fe6-4068-9c7d-b328e5319215\\\\scratchpad\\\\check_multi_engine.js\")",
-      "Bash(NODE_PATH=\"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\705bc6b22212b352\\\\node_modules\" node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\39e1d344-5fe6-4068-9c7d-b328e5319215\\\\scratchpad\\\\verify_fix.js\")"
+      "Bash(NODE_PATH=\"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\705bc6b22212b352\\\\node_modules\" node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\39e1d344-5fe6-4068-9c7d-b328e5319215\\\\scratchpad\\\\verify_fix.js\")",
+      "Bash(python -c \"import playwright\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --no-sandbox --screenshot=\"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/6c2e8020-81af-4a13-95c6-c26b210c0b27/scratchpad/thanks-full.png\" --window-size=1200,3000 --virtual-time-budget=4000 \"http://localhost:8791/index.html#thanks\")"
     ]
   }
 }
