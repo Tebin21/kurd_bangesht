@@ -71,7 +71,10 @@
       "Bash(pkill -f \"http.server 8934\")",
       "Bash(node -e \"console.log\\(require\\('playwright'\\)\\)\")",
       "Bash(where chrome.exe)",
-      "Bash(where msedge.exe)"
+      "Bash(where msedge.exe)",
+      "Bash(node \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp_test.js\")",
+      "Bash(curl -s -X POST http://localhost:9333/json/close)",
+      "Bash(taskkill //F //IM chrome.exe //T)"
     ]
   }
 }
