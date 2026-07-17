@@ -69,7 +69,9 @@
       "Bash(sed -i 's/8792/8794/' \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/72b9b89d-00e5-44dc-bd5f-7bd2b1476a8d/scratchpad/test_transition.js\")",
       "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --disable-gpu --no-sandbox --screenshot=C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/72b9b89d-00e5-44dc-bd5f-7bd2b1476a8d/scratchpad/hero-check.png --window-size=390,844 --virtual-time-budget=2000 'http://localhost:8794/index.html#hero')",
       "Bash(pkill -f \"http.server 8934\")",
-      "Bash(node -e \"console.log\\(require\\('playwright'\\)\\)\")"
+      "Bash(node -e \"console.log\\(require\\('playwright'\\)\\)\")",
+      "Bash(where chrome.exe)",
+      "Bash(where msedge.exe)"
     ]
   }
 }
