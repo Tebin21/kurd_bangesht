@@ -513,25 +513,39 @@ section{
   display:flex; align-items:center; justify-content:center; gap: clamp(.5rem, 4vw, 1.6rem);
   font-size: clamp(1.5rem, 11.5vw, 7.8rem);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.6;
   margin: 0 0 clamp(1.7rem, 4.8vw, 2.5rem);
+  padding-block: .25em;
   flex-wrap: nowrap;
   white-space: nowrap;
   max-width: 100%;
+  overflow: visible;
 }
 .hero-title .name{
   font-family: "NizarNastaliqKurdish", "doran", sans-serif;
-  background: linear-gradient(120deg, var(--deep-bronze) 0%, var(--cocoa-brown) 20%, var(--dark-rose-gold) 40%, var(--antique-bronze) 60%, var(--champagne-bronze) 80%, var(--deep-bronze) 100%);
-  background-size: 220% auto;
-  -webkit-background-clip: text; background-clip:text; color:transparent;
-  animation: shimmerText 6s linear infinite, heroNameFloat 8s ease-in-out infinite;
-  text-shadow: 0 2px 6px rgba(74,52,34,.18);
+  display: inline-block;
+  color: #F5EBDB;
+  -webkit-text-stroke: .5px rgba(0,0,0,.4);
+  paint-order: stroke fill;
+  text-shadow:
+    0 -1px 0 rgba(255,255,255,.2),
+    0 3px 10px rgba(0,0,0,.32);
+  animation: nameCandlelight 9s ease-in-out infinite;
   white-space: nowrap;
   flex: 0 1 auto;
+  overflow: visible;
 }
-@keyframes heroNameFloat{
-  0%,100%{ transform: translateY(0); }
-  50%{ transform: translateY(-5px); }
+@keyframes nameCandlelight{
+  0%, 100%{
+    text-shadow:
+      0 -1px 0 rgba(255,255,255,.16),
+      0 3px 10px rgba(0,0,0,.26);
+  }
+  50%{
+    text-shadow:
+      0 -1px 0 rgba(255,255,255,.30),
+      0 4px 14px rgba(0,0,0,.38);
+  }
 }
 .hero-icon-wrap{
   position:relative;
@@ -569,6 +583,37 @@ section{
 @keyframes heroIconGlow{
   0%,100%{ opacity:.5; transform: scale(.92); }
   50%{ opacity:.85; transform: scale(1.1); }
+}
+
+.hero-title--logo{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  white-space:normal;
+}
+.hero-logo-wrap{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: min(96vw, clamp(440px, 124vw, 960px));
+}
+.hero-logo-wrap::before{
+  content:'';
+  position:absolute;
+  inset: -22%;
+  background: radial-gradient(ellipse at center, rgba(250,241,224,.85) 0%, rgba(250,241,224,.35) 40%, transparent 72%);
+  opacity:.13;
+  filter: blur(48px);
+  z-index:-1;
+  pointer-events:none;
+}
+.hero-logo-img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height: 60vh;
+  object-fit:contain;
 }
 
 .hero-subtitle{

@@ -74,7 +74,26 @@
       "Bash(where msedge.exe)",
       "Bash(node \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp_test.js\")",
       "Bash(curl -s -X POST http://localhost:9333/json/close)",
-      "Bash(taskkill //F //IM chrome.exe //T)"
+      "Bash(taskkill //F //IM chrome.exe //T)",
+      "Bash('C:/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --disable-gpu --hide-scrollbars --remote-debugging-port=9333 --user-data-dir=C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp-profile --no-first-run --no-default-browser-check about:blank)",
+      "Bash(sleep 2)",
+      "Bash(curl -s http://localhost:9333/json/version)",
+      "Bash(node \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp_zoom.js\" 390 3)",
+      "Bash(node \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp_zoom.js\" 390 2)",
+      "Bash(node \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp_zoom.js\" 320 2)",
+      "Bash(node \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp_zoom.js\" 430 2)",
+      "Bash(node \"C:/Users/Tebin_PC/AppData/Local/Temp/claude/c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht/b07234ae-f9a3-4427-b764-88a5324f5993/scratchpad/cdp_verify.js\")",
+      "Bash(rm -f _test_hero_preview.html)",
+      "Bash(curl -s -X GET http://localhost:9333/json/list)",
+      "Bash(powershell -NoProfile -Command 'Get-CimInstance Win32_Process -Filter \"Name='\\\\''chrome.exe'\\\\''\" | Where-Object { $_.CommandLine -like '\\\\''*remote-debugging-port=9333*'\\\\'' } | Select-Object ProcessId | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }')",
+      "Bash(powershell -c 'Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\('\\\\''rayan.png'\\\\''\\); Write-Output \\($img.Width.ToString\\(\\) + '\\\\''x'\\\\'' + $img.Height.ToString\\(\\)\\)')",
+      "Bash(node -e \"require\\('playwright'\\)\")",
+      "Bash(node screenshot.js)",
+      "Bash(magick identify *)",
+      "Bash(node -e *)",
+      "Bash(pkill -f \"python -m http.server 8080\")",
+      "Bash(taskkill //PID 8096 //F)",
+      "Bash(taskkill //F //IM python.exe)"
     ]
   }
 }
