@@ -34,22 +34,95 @@
   }
 
   /* ---------------------------------------------------
-     Loading screen
+     Loading screen — stays up until every critical asset for
+     the opening experience is genuinely ready, never on a fixed
+     timer. Each check below resolves the moment the real browser
+     event fires (or, if that specific resource ever stalls/errors,
+     after its own short safety-net timeout) so a single broken
+     request can never hang the loader forever while still letting
+     a fast connection dismiss it immediately.
+
+     Deliberately NOT gated on: window's 'load' event (would also
+     wait on the map iframe, background-decoration setup, etc. —
+     see whenIdle() below, all non-critical) or the background
+     music track (preload="none"; it only ever starts on the
+     visitor's first tap, long after this loader is gone, so it is
+     never part of what's on screen here).
      --------------------------------------------------- */
   function initLoader() {
     var loader = document.getElementById('loader');
+    var intro = document.getElementById('cinematicIntro');
     if (!loader) return Promise.resolve();
 
-    var minDelay = new Promise(function (resolve) { setTimeout(resolve, 1600); });
-    var pageLoad = new Promise(function (resolve) {
-      if (document.readyState === 'complete') resolve();
-      else window.addEventListener('load', resolve, { once: true });
-    });
+    function withTimeout(promise, ms) {
+      return new Promise(function (resolve) {
+        var done = false;
+        var finish = function () { if (!done) { done = true; resolve(); } };
+        promise.then(finish, finish);
+        setTimeout(finish, ms);
+      });
+    }
 
-    return Promise.all([minDelay, pageLoad]).then(function () {
+    // Fonts actually used above the fold, before the browser's own
+    // font-display:swap timing would otherwise risk a visible swap.
+    function fontsReady() {
+      if (!('fonts' in document)) return Promise.resolve();
+      var specs = ['400 1em doran', '700 1em doran', '1em NizarNastaliqKurdish'];
+      var loads = specs.map(function (spec) {
+        return document.fonts.load(spec).catch(function () {});
+      });
+      return withTimeout(
+        Promise.all(loads).then(function () { return document.fonts.ready; }),
+        3000
+      );
+    }
+
+    // Resolves once an <img> has both downloaded AND decoded a paintable
+    // bitmap (decode() avoids a decode hitch the instant it's revealed).
+    function imageReady(img) {
+      if (!img) return Promise.resolve();
+      var decode = function () { return img.decode ? img.decode().catch(function () {}) : Promise.resolve(); };
+      if (img.complete && img.naturalWidth) return decode();
+      return new Promise(function (resolve) {
+        img.addEventListener('load', function () { decode().then(resolve); }, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+      });
+    }
+    function heroImagesReady() {
+      var poster = document.getElementById('introPoster');
+      var logo = document.querySelector('.hero-logo-img');
+      return withTimeout(Promise.all([imageReady(poster), imageReady(logo)]), 4000);
+    }
+
+    // Hero video metadata + an actually decoded first frame (readyState
+    // 2 / 'loadeddata') — not just the network request completing.
+    // initCinematicIntro() below seeks to time 0 as soon as metadata
+    // arrives, which is what drives the browser to decode that frame.
+    function heroVideoReady() {
+      var video = document.getElementById('introVideo');
+      if (!video) return Promise.resolve();
+      var metadata = video.readyState >= 1
+        ? Promise.resolve()
+        : new Promise(function (resolve) { video.addEventListener('loadedmetadata', resolve, { once: true }); });
+      var frame = video.readyState >= 2
+        ? Promise.resolve()
+        : new Promise(function (resolve) {
+            video.addEventListener('loadeddata', resolve, { once: true });
+            video.addEventListener('error', resolve, { once: true });
+          });
+      return withTimeout(metadata.then(function () { return frame; }), 5000);
+    }
+
+    return Promise.all([fontsReady(), heroImagesReady(), heroVideoReady()]).then(function () {
       loader.classList.add('is-hidden');
       document.body.classList.remove('no-scroll');
-      setTimeout(function () { loader.remove(); }, 1100);
+      // Crossfades with the loader's own 1s opacity transition — the
+      // cinematic intro (opaque, warm background) fades in underneath
+      // as the loader fades out, so there's never a visible gap.
+      if (intro) intro.classList.add('is-ready');
+      return new Promise(function (resolve) {
+        setTimeout(function () { loader.remove(); resolve(); }, 1100);
+      });
     });
   }
 

@@ -111,9 +111,22 @@ html.intro-active body{ overflow:hidden; height:100%; }
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
   cursor:pointer;
+  /* Stays invisible and out of the tab order until the loading screen
+     (z-index:4000, see .loader below) confirms every critical asset is
+     actually ready — see .is-ready and initLoader() in script.js. This
+     keeps it from ever being the thing a visitor sees first. */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition: opacity 1.6s cubic-bezier(.65,0,.35,1),
               filter 1.6s cubic-bezier(.65,0,.35,1),
-              transform 1.6s cubic-bezier(.65,0,.35,1);
+              transform 1.6s cubic-bezier(.65,0,.35,1),
+              visibility 1.6s cubic-bezier(.65,0,.35,1);
+}
+.cinematic-intro.is-ready{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 .cinematic-intro::after{
   content:'';
@@ -193,27 +206,12 @@ html.intro-active body{ overflow:hidden; height:100%; }
    LOADING SCREEN
    ===================================================== */
 .loader{
-  position: fixed; inset: 0; z-index: 999;
+  position: fixed; inset: 0; z-index: 4000;
   display:flex; align-items:center; justify-content:center;
   background: linear-gradient(160deg, var(--warm-white), var(--champagne) 55%, var(--cream));
   transition: opacity 1s var(--ease-luxury), visibility 1s var(--ease-luxury);
 }
 .loader.is-hidden{ opacity:0; visibility:hidden; pointer-events:none; }
-
-/* The cinematic intro (z-index:3000, opaque from first paint) always
-   sits above the loader (z-index:999) for as long as both exist, so
-   the loader is never actually visible to the user while it's active.
-   Pause its animations for that entire span instead of burning
-   CPU/GPU on something nobody can see. If the intro markup/video is
-   ever absent, html.intro-active is never added (see initCinematicIntro
-   in script.js), so the loader correctly keeps animating normally in
-   that fallback case, where it IS the visible loading UI. */
-html.intro-active .loader-glow,
-html.intro-active .loader-letter,
-html.intro-active .loader-heart,
-html.intro-active .loader-bar-fill{
-  animation-play-state: paused;
-}
 
 .loader-glow{
   position:absolute; width:60vmax; height:60vmax; border-radius:50%;
