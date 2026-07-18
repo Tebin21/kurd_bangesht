@@ -12,10 +12,16 @@
 </script>
 
 <link rel="preload" as="image" href="video-poster.jpg" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="Doran-Medium.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="Doran-Bold.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="NizarNastaliqKurdish.woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<!-- style.min.css / script.min.js (below) are generated from style.css /
+     script.js via `npm run build:min` — edit the source files, then
+     re-run that script before deploying. -->
+<link rel="stylesheet" href="style.min.css">
 </head>
 <body>
 <script>window.scrollTo({ top: 0, left: 0, behavior: 'instant' });</script>
@@ -38,7 +44,7 @@
     class="cinematic-video"
     src="video-2.mp4"
     poster="video-poster.jpg"
-    preload="auto"
+    preload="metadata"
     playsinline
     webkit-playsinline="true"
     muted
@@ -95,7 +101,7 @@
   </svg>
   <span class="eq-bars" aria-hidden="true"><i></i><i></i><i></i></span>
 </button>
-<audio id="bgMusic" src="love.mp3" loop preload="auto"></audio>
+<audio id="bgMusic" src="love.mp3" loop preload="none"></audio>
 
 <main>
 
@@ -104,17 +110,29 @@
   <!-- ============================= -->
   <section class="hero" id="hero">
     <div class="hero-flower hero-flower--tl" aria-hidden="true">
-      <img src="flow up left.png" alt="" class="hero-flower-img">
+      <picture>
+        <source srcset="flow-up-left.avif" type="image/avif">
+        <source srcset="flow-up-left.webp" type="image/webp">
+        <img src="flow up left.png" alt="" class="hero-flower-img" width="1024" height="1536">
+      </picture>
     </div>
     <div class="hero-flower hero-flower--br" aria-hidden="true">
-      <img src="flow dawn right.png" alt="" class="hero-flower-img">
+      <picture>
+        <source srcset="flow-dawn-right.avif" type="image/avif">
+        <source srcset="flow-dawn-right.webp" type="image/webp">
+        <img src="flow dawn right.png" alt="" class="hero-flower-img" width="1024" height="1536">
+      </picture>
     </div>
     <div class="hero-inner">
       <div class="hero-content">
         <p class="hero-eyebrow reveal hero-reveal">بانگێشتنامە</p>
         <h1 class="hero-title hero-title--logo reveal hero-reveal" style="transition-delay:.1s">
           <span class="hero-logo-wrap">
-            <img src="rayan.png" alt="ڕەیان و کاروان" class="hero-logo-img">
+            <picture>
+              <source srcset="rayan.avif" type="image/avif">
+              <source srcset="rayan.webp" type="image/webp">
+              <img src="rayan.png" alt="ڕەیان و کاروان" class="hero-logo-img" width="1536" height="1024">
+            </picture>
           </span>
         </h1>
         <p class="hero-subtitle reveal hero-reveal" style="transition-delay:.2s">بەرێزاتان بانگێشت کراوەن<br>بۆ ڕۆژی هاوسەرگیریمان،<br>خۆشحاڵ دەبین بە هاتنتان.</p>
@@ -441,6 +459,6 @@
 
 
 
-<script src="script.js"></script>
+<script src="script.min.js"></script>
 </body>
 </html>

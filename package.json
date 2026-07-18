@@ -1,0 +1,13 @@
+{
+  "name": "kurd-bangesht-wedding-invite",
+  "private": true,
+  "description": "Static wedding invitation site. No runtime dependencies — devDependencies here are only used by the one-off scripts in scripts/ to (re)generate optimized assets, and by the build:min script to (re)generate the minified CSS/JS actually served by index.html.",
+  "scripts": {
+    "build:min": "esbuild style.css --minify --outfile=style.min.css && esbuild script.js --minify --outfile=script.min.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "sharp": "^0.35.3",
+    "ttf2woff2": "^8.0.1"
+  }
+}

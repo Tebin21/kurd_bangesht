@@ -93,7 +93,14 @@
       "Bash(node -e *)",
       "Bash(pkill -f \"python -m http.server 8080\")",
       "Bash(taskkill //PID 8096 //F)",
-      "Bash(taskkill //F //IM python.exe)"
+      "Bash(taskkill //F //IM python.exe)",
+      "Bash(grep -v \"^\\\\./\\\\.git\")",
+      "Bash(python -c \"import brotli; print\\('brotli OK', brotli.__version__ if hasattr\\(brotli,'__version__'\\) else 'installed'\\)\")",
+      "Bash(python -c \"import fontTools; print\\(fontTools.version\\)\")",
+      "Bash(\"./node_modules/ffmpeg-static/ffmpeg.exe\" -i video-2.mp4)",
+      "Bash(\"./node_modules/ffmpeg-static/ffmpeg.exe\" -y -i video-2.mp4 -c:v copy -an -movflags +faststart video-2.remux.mp4)",
+      "Bash(\"./node_modules/ffmpeg-static/ffmpeg.exe\" -i video-2.remux.mp4)",
+      "Bash(node -e \"console.log\\(require\\('ttf2woff2'\\)\\)\")"
     ]
   }
 }
