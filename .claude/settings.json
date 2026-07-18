@@ -102,7 +102,9 @@
       "Bash(\"./node_modules/ffmpeg-static/ffmpeg.exe\" -i video-2.remux.mp4)",
       "Bash(node -e \"console.log\\(require\\('ttf2woff2'\\)\\)\")",
       "Bash(node --check script.js)",
-      "Bash(node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\34e5b178-b1d7-41c6-9394-41e5bb3ea13a\\\\scratchpad\\\\dead-css-check.js\")"
+      "Bash(node \"C:\\\\Users\\\\Tebin_PC\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Tebin-PC-OneDrive-Desktop-kurd-bangesht\\\\34e5b178-b1d7-41c6-9394-41e5bb3ea13a\\\\scratchpad\\\\dead-css-check.js\")",
+      "Bash(node shot7.js)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 8080 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue })"
     ]
   }
 }

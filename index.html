@@ -17,14 +17,17 @@
 <link rel="preload" as="font" type="font/woff2" href="NizarNastaliqKurdish.woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Amiri and Petit Formal Script are only used below the fold (the
-     invitation verse and the thanks-section monogram) — neither is
-     needed for the initial paint, so this loads non-render-blocking:
-     preload warms the fetch, the media="print" trick keeps it from
-     blocking render, and onload flips it to the real stylesheet once
-     it arrives. <noscript> covers visitors with JS disabled. -->
+<!-- Amiri is only used below the fold (the invitation verse), so this
+     loads non-render-blocking: preload warms the fetch, the media="print"
+     trick keeps it from blocking render, and onload flips it to the real
+     stylesheet once it arrives. Petit Formal Script IS needed at first
+     paint now (the loading screen's R/K monogram, see #loader below) —
+     initLoader() in script.js explicitly waits on this link's load event
+     before dismissing the loader, so that gate is what actually keeps it
+     off the critical rendering path rather than this being render-blocking.
+     <noscript> covers visitors with JS disabled. -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap" media="print" onload="this.media='all'">
+<link id="googleFontsLink" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap"></noscript>
 <!-- style.min.css / script.min.js (below) are generated from style.css /
      script.js via `npm run build:min` — edit the source files, then
@@ -74,10 +77,19 @@
 <div class="loader" id="loader">
   <div class="loader-glow"></div>
   <div class="loader-content">
-    <div class="loader-monogram">
-      <span class="loader-letter">ڕ</span>
-      <svg class="loader-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-10.2-9.3C.3 8.9 1.6 5.3 5 4.4c2-.5 3.9.3 5 2 .1.1.2.1.3 0 1.1-1.7 3-2.5 5-2 3.4.9 4.7 4.5 3.2 7.3C19.5 16.3 12 21 12 21z"/></svg>
-      <span class="loader-letter">ک</span>
+    <div class="loader-monogram" aria-label="R and K">
+      <span class="loader-letter">R</span>
+      <svg class="loader-heart" viewBox="0 0 32 28" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="loaderHeartGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--soft-gold)"/>
+            <stop offset="55%" stop-color="var(--gold-deep)"/>
+            <stop offset="100%" stop-color="var(--rose-gold-deep)"/>
+          </linearGradient>
+        </defs>
+        <path d="M16 24C16 24 4 17 4 9.2C4 5.2 7.1 2 11 2C13.2 2 15.1 3.1 16 4.8C16.9 3.1 18.8 2 21 2C24.9 2 28 5.2 28 9.2C28 17 16 24 16 24Z" stroke="url(#loaderHeartGrad)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+      <span class="loader-letter">K</span>
     </div>
     <p class="loader-text">تکایە چاوەڕوان بن...</p>
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>

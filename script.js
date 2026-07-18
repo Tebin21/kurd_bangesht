@@ -65,14 +65,31 @@
 
     // Fonts actually used above the fold, before the browser's own
     // font-display:swap timing would otherwise risk a visible swap.
+    // Petit Formal Script (the loader's R/K monogram) ships as a
+    // non-render-blocking Google Fonts link (see #googleFontsLink in
+    // index.html) — its @font-face rules only exist once that link's
+    // 'load' event fires, so that's awaited first before asking the
+    // Font Loading API for the family itself.
     function fontsReady() {
       if (!('fonts' in document)) return Promise.resolve();
-      var specs = ['400 1em doran', '700 1em doran', '1em NizarNastaliqKurdish'];
-      var loads = specs.map(function (spec) {
-        return document.fonts.load(spec).catch(function () {});
+
+      var googleFontsLink = document.getElementById('googleFontsLink');
+      var googleFontsCss = new Promise(function (resolve) {
+        if (!googleFontsLink || googleFontsLink.sheet) return resolve();
+        googleFontsLink.addEventListener('load', resolve, { once: true });
+        googleFontsLink.addEventListener('error', resolve, { once: true });
       });
+
       return withTimeout(
-        Promise.all(loads).then(function () { return document.fonts.ready; }),
+        googleFontsCss.then(function () {
+          var specs = [
+            '400 1em doran', '700 1em doran', '1em NizarNastaliqKurdish',
+            '1em "Petit Formal Script"'
+          ];
+          return Promise.all(specs.map(function (spec) {
+            return document.fonts.load(spec).catch(function () {});
+          }));
+        }).then(function () { return document.fonts.ready; }),
         3000
       );
     }

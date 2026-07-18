@@ -230,15 +230,23 @@ html.intro-active body{ overflow:hidden; height:100%; }
   font-size: clamp(2.2rem, 8vw, 3.2rem);
   color: var(--gold-deep);
   margin-bottom: 1rem;
+  /* R/K are Latin initials inside an RTL (dir="rtl") document — without
+     this, the page's base direction reverses their visual order to K…R. */
+  direction: ltr;
 }
 .loader-letter{
-  font-weight: 700;
+  font-family: "Petit Formal Script", cursive;
+  font-weight: 400;
   background: linear-gradient(120deg, var(--gold-deep), var(--soft-gold) 40%, var(--rose-gold-deep) 70%, var(--soft-gold));
   background-size: 250% auto;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: shimmerText 3s linear infinite;
 }
-.loader-heart{ width: 1em; height: 1em; color: var(--rose-gold-deep); animation: heartbeat 1.8s ease-in-out infinite; }
+.loader-heart{
+  width: 1em; height: 1em;
+  filter: drop-shadow(0 2px 5px rgba(139,90,60,.28));
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
 @keyframes heartbeat{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.2);} }
 @keyframes shimmerText{ to{ background-position: -250% center; } }
 
