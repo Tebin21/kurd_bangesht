@@ -200,6 +200,21 @@ html.intro-active body{ overflow:hidden; height:100%; }
 }
 .loader.is-hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 
+/* The cinematic intro (z-index:3000, opaque from first paint) always
+   sits above the loader (z-index:999) for as long as both exist, so
+   the loader is never actually visible to the user while it's active.
+   Pause its animations for that entire span instead of burning
+   CPU/GPU on something nobody can see. If the intro markup/video is
+   ever absent, html.intro-active is never added (see initCinematicIntro
+   in script.js), so the loader correctly keeps animating normally in
+   that fallback case, where it IS the visible loading UI. */
+html.intro-active .loader-glow,
+html.intro-active .loader-letter,
+html.intro-active .loader-heart,
+html.intro-active .loader-bar-fill{
+  animation-play-state: paused;
+}
+
 .loader-glow{
   position:absolute; width:60vmax; height:60vmax; border-radius:50%;
   background: radial-gradient(circle, rgba(212,175,106,.35), transparent 65%);

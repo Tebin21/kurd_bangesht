@@ -642,6 +642,33 @@
   }
 
   /* ---------------------------------------------------
+     Warm the HTTP cache for the intro video once the page has
+     settled, so that by the time the visitor actually taps (a
+     physical action that takes real time — noticing the hint,
+     moving a finger/cursor, tapping), the browser already has
+     some or all of the file cached and can start playback
+     instantly instead of cold-starting the fetch at that exact
+     moment. The <video> keeps preload="metadata" in the markup
+     (unchanged) so the initial page load is never gated behind
+     it — this only adds a low-priority, deferred prefetch on
+     top, well after load, using the same idle-time pattern as
+     the sparkles/petals/butterflies deferral above.
+     --------------------------------------------------- */
+  function prefetchIntroVideo() {
+    var video = document.getElementById('introVideo');
+    if (!video) return;
+    var src = video.currentSrc || video.src;
+    if (!src) return;
+
+    var link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'video';
+    link.href = src;
+    link.setAttribute('fetchpriority', 'low');
+    document.head.appendChild(link);
+  }
+
+  /* ---------------------------------------------------
      Boot
      --------------------------------------------------- */
   function boot() {
@@ -656,6 +683,7 @@
     whenIdle(initSparkles);
     whenIdle(initPetals);
     whenIdle(initButterflies);
+    whenIdle(prefetchIntroVideo);
   }
 
   if (document.readyState === 'loading') {

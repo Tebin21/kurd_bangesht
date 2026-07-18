@@ -17,7 +17,15 @@
 <link rel="preload" as="font" type="font/woff2" href="NizarNastaliqKurdish.woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<!-- Amiri and Petit Formal Script are only used below the fold (the
+     invitation verse and the thanks-section monogram) — neither is
+     needed for the initial paint, so this loads non-render-blocking:
+     preload warms the fetch, the media="print" trick keeps it from
+     blocking render, and onload flips it to the real stylesheet once
+     it arrives. <noscript> covers visitors with JS disabled. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Petit+Formal+Script&display=swap"></noscript>
 <!-- style.min.css / script.min.js (below) are generated from style.css /
      script.js via `npm run build:min` — edit the source files, then
      re-run that script before deploying. -->
